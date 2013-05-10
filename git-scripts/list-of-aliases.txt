@@ -1,0 +1,39 @@
+##
+## Jonathan McCann's Aliases
+##
+
+# Reload .bash_profile
+alias bp='. ~/.bash_profile'
+
+# Reload scripts
+alias cps='cp C:/Users/liferay/Scripts/* "C:/Program Files (x86)/Git/bin"'
+
+# Git commands
+alias gb='git branch'
+alias gc='git checkout'
+alias gcf='git checkout --force'
+alias gd='git diff'
+alias gs='git status'
+
+# Git directories
+alias r6010='cd /e/Repositories/6010'
+alias r6011='cd /e/Repositories/6011'
+alias r6012='cd /e/Repositories/liferay-portal-ee-6.0.12'
+alias r60x='cd /e/Repositories/liferay-portal-ee-6.0.x'
+alias r6110='cd /e/Repositories/liferay-portal-ee-6.1.10'
+alias r6120='cd /e/Repositories/liferay-portal-ee-6.1.20'
+alias r61x='cd /e/Repositories/liferay-portal-ee-6.1.x'
+alias rtrunk='cd /e/Repositories/liferay-portal'
+
+# Git functions
+function gls() {
+	git ls-files | grep -i $1 | xargs "/c/Program Files/Sublime Text 2/sublime_text.exe"&
+}
+
+function glog() {
+	git ls-files | grep -i $1 | xargs gitk&
+}
+
+# Program commands
+alias sub='"/c/Program Files/Sublime Text 2/sublime_text.exe"&'
+alias subreq='"/c/Program Files/Sublime Text 2/sublime_text.exe" fix-pack-requirements.txt&'
