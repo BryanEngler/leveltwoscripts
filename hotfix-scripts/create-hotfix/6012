@@ -1,0 +1,12 @@
+#!/bin/sh
+#Run as source
+#Syntax: source 6012 LPP LPE
+
+cd E:/Repositories/liferay-portal-ee-6.0.x
+echo -e "\n""Checking out ee-6.0.12""\n"
+git checkout ee-6.0.12 --force
+git branch fix-pack-LPP-$1 fix-pack-base-6012
+echo -e "\n""Checking out fix-pack-LPP-"$1"\n"
+git checkout fix-pack-LPP-$1
+
+echo LPE-$2 > fix-pack-fixed-issues.txt
