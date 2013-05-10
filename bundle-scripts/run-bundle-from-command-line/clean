@@ -1,0 +1,85 @@
+#!/bin/sh
+#Usage - run $VERSION_NUMBER
+
+case $1 in
+	6010)
+		echo -e "\n""\n""\033[32mClean 6010\033[0m"
+		rm -r E:/Deploy/6010/data/document_library/*
+		rm -r E:/Deploy/6010/data/hsql/*
+		rm -r E:/Deploy/6010/data/jackrabbit/*
+		rm -r E:/Deploy/6010/data/lucene/*
+		rm -r E:/Deploy/6010/tomcat-6.0.29/temp/*
+		rm -r E:/Deploy/6010/tomcat-6.0.29/work/*
+		mysql --user=root --password=test -e 'drop database sixohten;'
+		mysql --user=root --password=test -e 'create database sixohten;'
+		;;
+	6011)
+		echo -e "\n""\n""\033[32mClean 6011\033[0m"
+		rm -r E:/Deploy/6011/data/document_library/*
+		rm -r E:/Deploy/6011/data/hsql/*
+		rm -r E:/Deploy/6011/data/jackrabbit/*
+		rm -r E:/Deploy/6011/data/lucene/*
+		rm -r E:/Deploy/6011/tomcat-6.0.29/temp/*
+		rm -r E:/Deploy/6011/tomcat-6.0.29/work/*
+		mysql --user=root --password=test -e 'drop database sixoheleven;'
+		mysql --user=root --password=test -e 'create database sixoheleven;'
+		;;
+	liferay-portal-ee-6.0.12)
+		echo -e "\n""\n""\033[32mClean 6012\033[0m"
+		rm -r E:/Deploy/6012/data/document_library/*
+		rm -r E:/Deploy/6012/data/hsql/*
+		rm -r E:/Deploy/6012/data/jackrabbit/*
+		rm -r E:/Deploy/6012/data/lucene/*
+		rm -r E:/Deploy/6012/tomcat-6.0.32/temp/*
+		rm -r E:/Deploy/6012/tomcat-6.0.32/work/*
+		mysql --user=root --password=test -e 'drop database sixohtwelve;'
+		mysql --user=root --password=test -e 'create database sixohtwelve;'
+		;;
+	liferay-portal-ee-6.0.x)
+		echo -e "\n""\n""\033[32mClean 60x\033[0m"
+		rm -r E:/Deploy/60x/data/*
+		rm -r E:/Deploy/60x/tomcat-6.0.32/temp/*
+		rm -r E:/Deploy/60x/tomcat-6.0.32/work/*
+		mysql --user=root --password=test -e 'drop database sixohx;'
+		mysql --user=root --password=test -e 'create database sixohx;'
+		;;
+	liferay-portal-ee-6.1.10)
+		echo -e "\n""\n""\033[32mClean 6110\033[0m"
+		rm -r E:/Deploy/6110/data/document_library/*
+		rm -r E:/Deploy/6110/data/hsql/*
+		rm -r E:/Deploy/6110/data/jackrabbit/*
+		rm -r E:/Deploy/6110/data/lucene/*
+		rm -r E:/Deploy/6110/tomcat-7.0.25/temp/*
+		rm -r E:/Deploy/6110/tomcat-7.0.25/work/*
+		mysql --user=root --password=test -e 'drop database sixoneten;'
+		mysql --user=root --password=test -e 'create database sixoneten;'
+		;;
+	liferay-portal-ee-6.1.20)
+		echo -e "\n""\n""\033[32mClean 6120\033[0m"
+		rm -r E:/Deploy/6120/data/document_library/*
+		rm -r E:/Deploy/6120/data/hsql/*
+		rm -r E:/Deploy/6120/data/jackrabbit/*
+		rm -r E:/Deploy/6120/data/lucene/*
+		rm -r E:/Deploy/6120/tomcat-7.0.27/temp/*
+		rm -r E:/Deploy/6120/tomcat-7.0.27/work/*
+		mysql --user=root --password=test -e 'drop database sixonetwenty;'
+		mysql --user=root --password=test -e 'create database sixonetwenty;'
+		;;
+	liferay-portal-ee-6.1.x)
+		echo -e "\n""\n""\033[32mClean 61x\033[0m"
+		rm -r E:/Deploy/61x/data/*
+		rm -r E:/Deploy/61x/tomcat-7.0.27/temp/*
+		rm -r E:/Deploy/61x/tomcat-7.0.27/work/*
+		mysql --user=root --password=test -e 'drop database sixonex;'
+		mysql --user=root --password=test -e 'create database sixonex;'
+		;;		
+	liferay-portal)
+		echo -e "\n""\n""\033[32mClean Trunk\033[0m"
+		rm -r E:/Deploy/trunk/data/*
+		rm -r E:/Deploy/trunk/tomcat-7.0.27/temp/*
+		rm -r E:/Deploy/trunk/tomcat-7.0.27/work/*
+		mysql --user=root --password=test -e 'drop database trunk;'
+		mysql --user=root --password=test -e 'create database trunk;'
+		;;
+	*)
+esac

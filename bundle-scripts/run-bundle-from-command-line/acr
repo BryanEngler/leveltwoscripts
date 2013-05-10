@@ -1,0 +1,38 @@
+#!/bin/sh
+#Usage - run $VERSION_NUMBER
+
+case $1 in
+	-a)
+		echo -e "\n""\033[32mAnt All\033[0m"
+		ant all
+		;;
+	-i)
+		cd portal-impl
+		echo -e "\n""\033[32mBuilding portal-impl\033[0m"
+		ant deploy
+		cd ..
+		;;
+	-s)
+		cd portal-service
+		echo -e "\n""\033[32mBuilding portal-service\033[0m"
+		ant deploy
+		cd ..
+		;;
+	-w)
+		cd portal-web
+		echo -e "\n""\033[32mBuilding portal-web\033[0m"
+		ant deploy
+		cd ..
+		;;
+	"")
+		echo -e "\n""\033[32mAnt Deploy\033[0m"
+		ant deploy
+		;;
+	*)
+esac
+
+PWD=$(basename `pwd`)
+
+"C:/Program Files (x86)/Git/bin/clean" $PWD
+
+"C:/Program Files (x86)/Git/bin/run" $PWD
