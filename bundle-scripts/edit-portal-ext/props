@@ -1,0 +1,40 @@
+#!/bin/sh
+#Usage - props
+
+PWD=$(basename `pwd`)
+
+case $PWD in
+	6010)
+		cd E:/Deploy/6010
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	6011)
+		cd E:/Deploy/6011
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	liferay-portal-ee-6.0.12)
+		cd E:/Deploy/6012
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	liferay-portal-ee-6.0.x)
+		cd E:/Deploy/60x
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	liferay-portal-ee-6.1.10)
+		cd E:/Deploy/6110
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	liferay-portal-ee-6.1.20)
+		cd E:/Deploy/6120
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	liferay-portal-ee-6.1.x)
+		cd E:/Deploy/61x
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;		
+	liferay-portal)
+		cd E:/Deploy/trunk
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	*)
+esac

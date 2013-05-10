@@ -1,0 +1,1 @@
+This script will allow you to open the current directory's portal-ext.properties from the command line.
