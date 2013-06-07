@@ -1,0 +1,1 @@
+FirefoxSearch takes a highlighted word, copies it, opens a new tab in Firefox, then uses whatever search provider is selected in the upper right to search for the highlighted word or phrase.
