@@ -1,0 +1,5 @@
+#!/bin/sh
+#Useage: hotfix $VERSION_NUMBER $CLIENT_NAME
+
+cd "/e/Fix Pack Development Tool"
+./fp-dev-tool.sh $1 $2

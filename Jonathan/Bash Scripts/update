@@ -1,0 +1,92 @@
+#Run as source
+
+cd E:/Repositories/liferay-portal
+echo -e "\n""\n""\033[32mUpdating liferay-portal...\033[0m"
+echo -e "\n""Checking out master""\n"
+git checkout master --force
+echo -e "\n""Pulling from upstream master""\n"
+git pull upstream master
+echo -e "\n""Pushing master to origin""\n"
+git push origin master
+
+cd ..
+cd liferay-portal-ee
+echo -e "\n""\n""\033[32mUpdating liferay-portal-ee...\033[0m"
+echo -e "\n""Checking out master""\n"
+git checkout master --force
+echo -e "\n""Pulling from upstream master""\n"
+git pull upstream master
+echo -e "\n""Pushing master to origin""\n"
+git push origin master
+echo -e "\n""Fetching upstream""\n"
+git fetch upstream
+
+cd ..
+cd liferay-portal-ee-6.0.x
+echo -e "\n""\n""\033[32mUpdating liferay-portal-ee-6.0.x...\033[0m"
+echo -e "\n""Checking out ee-6.0.x""\n"
+git checkout ee-6.0.x --force
+echo -e "\n""Merging upstream and 6.0.x""\n"
+git merge upstream/ee-6.0.x
+echo -e "\n""Pushing master to origin""\n"
+git push origin ee-6.0.x:ee-6.0.x
+
+cd ..
+cd liferay-portal-ee-6.1.x
+echo -e "\n""\n""\033[32mUpdating liferay-portal-ee-6.1.x...\033[0m"
+echo -e "\n""Checking out ee-6.1.x""\n"
+git checkout ee-6.1.x --force
+echo -e "\n""Merging upstream and 6.1.x""\n"
+git merge upstream/ee-6.1.x
+echo -e "\n""Pushing master to origin""\n"
+git push origin ee-6.1.x:ee-6.1.x
+
+cd ..
+cd liferay-plugins
+echo -e "\n""\n""\033[32mUpdating liferay-plugins...\033[0m"
+echo -e "\n""Checking out master""\n"
+git checkout master --force
+echo -e "\n""Merging upstream and master""\n"
+git pull upstream master
+echo -e "\n""Pushing master to origin""\n"
+git push origin master
+
+cd ..
+cd liferay-plugins-ee
+echo -e "\n""\n""\033[32mUpdating liferay-plugins-ee...\033[0m"
+echo -e "\n""Checking out master""\n"
+git checkout master --force
+echo -e "\n""Pulling from upstream master""\n"
+git pull upstream master
+echo -e "\n""Pushing master to origin""\n"
+git push origin master
+echo -e "\n""Fetching upstream""\n"
+git fetch upstream
+
+echo -e "\n""\n""\033[32mUpdating liferay-plugins-ee-6.0.x...\033[0m"
+git checkout ee-6.0.x --force
+echo -e "\n""\n""\033[32mMerging in changes...\033[0m"
+git merge upstream/ee-6.0.x
+echo -e "\n""Pushing to origin""\n"
+git push origin ee-6.0.x:ee-6.0.x
+
+echo -e "\n""\n""\033[32mUpdating liferay-plugins-ee-6.1.x...\033[0m"
+git checkout ee-6.1.x --force
+echo -e "\n""\n""\033[32mMerging in changes...\033[0m"
+git merge upstream/ee-6.1.x
+echo -e "\n""Pushing to origin""\n"
+git push origin ee-6.1.x:ee-6.1.x
+
+#cd ..
+#cd alloy-ui
+#echo -e "\n""\n""\033[32mUpdating alloy-ui...\033[0m"
+#echo -e "\n""Checking out master""\n"
+#git checkout master --force
+#echo -e "\n""Pulling from upstream master""\n"
+#git pull upstream master
+#echo -e "\n""Pushing master to origin""\n"
+#git push origin master
+#echo -e "\n""Fetching upstream""\n"
+#git fetch upstream
+
+cd /e/Repositories

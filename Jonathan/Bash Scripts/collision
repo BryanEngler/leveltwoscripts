@@ -1,0 +1,26 @@
+#!/bin/sh
+#Run this to check for collisions manually
+#Enter a blank string to exit the while loop
+
+cd /c/Users/liferay/Desktop/fp-dev-tool
+echo -e "\n""Updating the hot fix repository:""\n"
+./fp-dev-tool.sh $1
+cd cache
+echo -e "\n"$2"'s hotfixes:"
+grep -i $2 hotfix-list.txt
+cd $1
+
+echo -e "\n""Please enter the file you wish to check:"
+while read inputline
+do
+	file="$inputline"
+
+	if [ -z "$file" ];
+	then
+		break
+	fi
+	
+	echo -e "\n""Hotfixes that modify "$file":"
+	grep -i "$file" *.xml
+	echo -e "\n""Please enter another file or hit enter to quit:"
+done

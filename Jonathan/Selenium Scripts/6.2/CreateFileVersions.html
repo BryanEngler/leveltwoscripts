@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>CreateFileVersions</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CreateFileVersions</td></tr>
+</thead><tbody>
+<tr>
+	<td>store</td>
+	<td>1</td>
+	<td>x</td>
+</tr>
+<tr>
+	<td>while</td>
+	<td>(${x} &lt; 100)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${x}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://localhost:8080/group/control_panel/manage?p_p_auth=9qjCMRYy&amp;p_p_id=20&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;p_p_mode=view&amp;doAsGroupId=10184&amp;refererPlid=10187&amp;controlPanelCategory=current_site.content&amp;_20_redirect=http%3A%2F%2Flocalhost%3A8080%2Fgroup%2Fcontrol_panel%2Fmanage%3Fp_p_auth%3D9qjCMRYy%26p_p_id%3D20%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview%26doAsGroupId%3D10184%26refererPlid%3D10187%26controlPanelCategory%3Dcurrent_site.content&amp;_20_struts_action=%2Fdocument_library%2Fedit_file_entry&amp;_20_backURL=http%3A%2F%2Flocalhost%3A8080%2Fgroup%2Fcontrol_panel%2Fmanage%3Fp_p_auth%3D9qjCMRYy%26p_p_id%3D20%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview%26doAsGroupId%3D10184%26refererPlid%3D10187%26controlPanelCategory%3Dcurrent_site.content&amp;_20_fileEntryId=10835</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>javascript:(Math.random()).toString().substr(2,3)</td>
+	<td>rand_num</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_20_title</td>
+	<td>DocumentTitle${rand_num}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=_20_publishButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>storedVars['x'] = ${x} + 1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>endWhile</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
