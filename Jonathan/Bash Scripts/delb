@@ -1,0 +1,3 @@
+#!/bin/sh
+#Syntax: delb $LPP_NUMBER
+git branch -D fix-pack-LPP-$1

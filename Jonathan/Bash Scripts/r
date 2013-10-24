@@ -1,0 +1,6 @@
+#!/bin/sh
+#Usage - r
+
+PWD=$(basename `pwd`)
+
+"C:/Program Files (x86)/Git/bin/run" $PWD $1

@@ -1,0 +1,14 @@
+#!/bin/sh
+#Usage - status
+
+cd E:/Repositories/liferay-portal-ee-6.0.x 60x
+echo -e "\n""\n""\033[32m60x status:\033[0m"
+git status
+
+cd E:/Repositories/liferay-portal-ee-6.1.x 61x
+echo -e "\n""\n""\033[32m61x status:\033[0m"
+git status
+
+cd E:/Repositories/liferay-portal
+echo -e "\n""\n""\033[32mTrunk status:\033[0m"
+git status

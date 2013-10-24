@@ -1,0 +1,51 @@
+#!/bin/sh
+#Usage - checkout $VERSION_NUMBER
+
+case $1 in
+	6010)
+		cd E:/Repositories/6010
+		;;
+	6011)
+		cd E:/Repositories/6011
+		;;
+	6012)
+		cd E:/Repositories/liferay-portal-ee-6.0.12
+		echo -e "\n""Checking out ee-6.0.12""\n"
+		git checkout ee-6.0.12
+		;;
+	60x)
+		cd E:/Repositories/liferay-portal-ee-6.0.x
+		echo -e "\n""Checking out ee-6.0.x""\n"
+		git checkout ee-6.0.x
+		echo -e "\n""Creating new properties file""\n"
+		echo app.server.parent.dir=E:/Deploy/60x > app.server.liferay.properties
+		echo app.server.tomcat.dir=E:/Deploy/60x/tomcat-6.0.32 >> app.server.liferay.properties
+		;;
+	6110)
+		cd E:/Repositories/liferay-portal-ee-6.1.10
+		echo -e "\n""Checking out ee-6.1.10""\n"
+		git checkout ee-6.1.10
+		;;
+	6120)
+		cd E:/Repositories/liferay-portal-ee-6.1.20
+		echo -e "\n""Checking out ee-6.1.20""\n"
+		git checkout ee-6.1.20
+		;;
+	61x)
+		cd E:/Repositories/liferay-portal-ee-6.1.x
+		echo -e "\n""Checking out ee-6.1.X""\n"
+		git checkout ee-6.1.x
+		echo -e "\n""Creating new properties file""\n"
+		echo app.server.parent.dir=E:/Deploy/61x > app.server.liferay.properties
+		echo app.server.tomcat.dir=E:/Deploy/61x/tomcat-7.0.27 >> app.server.liferay.properties
+		;;
+	trunk)
+		cd E:/Repositories/liferay-portal
+		echo -e "\n""Checking out Trunk""\n"
+		git checkout master
+		echo -e "\n""Creating new properties file""\n"
+		echo app.server.parent.dir=E:/Deploy/trunk > app.server.liferay.properties
+		echo app.server.tomcat.dir=E:/Deploy/trunk/tomcat-7.0.27 >> app.server.liferay.properties
+		;;
+	*)
+esac

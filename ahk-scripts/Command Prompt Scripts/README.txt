@@ -1,1 +1,0 @@
-OpenCommandPrompt (taken from Bryan) opens a command prompt in the current directory.

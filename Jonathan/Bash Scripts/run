@@ -1,0 +1,57 @@
+#!/bin/sh
+#Usage - run $VERSION_NUMBER
+
+GREEN='\e[0;33m'
+NC='\e[0m' # No Color
+
+case $1 in
+	6010)
+		echo -e "\n""\033[32mRun 6010\033[0m"
+		cd E:/Deploy/6010/tomcat-6.0.29/bin
+		;;
+	6011)
+		echo -e "\n""\033[32mRun 6011\033[0m"
+		cd E:/Deploy/6011/tomcat-6.0.29/bin
+		;;
+	liferay-portal-ee-6.0.12)
+		echo -e "\n""\033[32mRun 6012\033[0m"
+		cd E:/Deploy/6012/tomcat-6.0.32/bin
+		;;
+	liferay-portal-ee-6.0.x)
+		echo -e "\n""\033[32mRun 60x\033[0m"
+		cd E:/Deploy/60x/tomcat-6.0.32/bin
+		;;
+	liferay-portal-ee-6.1.10)
+		echo -e "\n""\033[32mRun 6110\033[0m"
+		cd E:/Deploy/6110/tomcat-7.0.25/bin
+		;;
+	liferay-portal-ee-6.1.20)
+		echo -e "\n""\033[32mRun 6120\033[0m"
+		cd E:/Deploy/6120/tomcat-7.0.27/bin
+		;;
+	liferay-portal-ee-6.1.30)
+		echo -e "\n""\033[32mRun 6130\033[0m"
+		cd E:/Deploy/6130/tomcat-7.0.27/bin
+		;;
+	liferay-portal-ee-6.1.x)
+		echo -e "\n""\033[32mRun 61x\033[0m"
+		cd E:/Deploy/61x/tomcat-7.0.27/bin
+		;;		
+	liferay-portal)
+		echo -e "\n""\033[32mRun Trunk\033[0m"
+		cd E:/Deploy/trunk/tomcat-7.0.27/bin
+		;;
+	*)
+esac
+
+case $2 in
+	-j)
+		echo -e "\033[32mWith JRebel\033[0m"
+		./catalina-rebel.sh jpda run
+		;;
+	"")
+		echo -e "\033[32mWithout JRebel\033[0m"
+		./catalina.sh jpda run
+		;;
+	*)
+esac

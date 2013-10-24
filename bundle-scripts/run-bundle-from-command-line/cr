@@ -1,8 +1,0 @@
-#!/bin/sh
-#Usage - run $VERSION_NUMBER
-
-PWD=$(basename `pwd`)
-
-"C:/Program Files (x86)/Git/bin/clean" $PWD
-
-"C:/Program Files (x86)/Git/bin/run" $PWD

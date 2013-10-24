@@ -1,1 +1,0 @@
-Auto HotKey scripts to make everything easier to use.

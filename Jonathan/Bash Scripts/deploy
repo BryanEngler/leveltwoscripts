@@ -1,0 +1,90 @@
+#!/bin/sh
+#Usage - deploy $VERSION_NUMBER
+
+#case $1 in
+#	6012)
+#		cd E:/Repositories/liferay-portal-ee-6.0.x
+#		echo -e "\n""Checking out ee-6.0.12""\n"
+#		git checkout ee-6.0.12 --force
+#		git clean -d -f
+#		echo -e "\n""Creating new properties file""\n"
+#		echo app.server.parent.dir=E:/Deploy/6012 > app.server.liferay.properties
+#		echo app.server.tomcat.dir=E:/Deploy/6012/tomcat-6.0.32 >> app.server.liferay.properties
+#		echo -e "\n""Compiling the 6012 bundle""\n"
+#		ant deploy
+#		echo -e "\n""Starting the 6012 bundle""\n"
+#		cd E:/Deploy/6012/tomcat-6.0.32/bin
+#		./catalina.sh jpda run
+#		;;
+#	60x)
+#		cd E:/Repositories/liferay-portal-ee-6.0.x
+#		echo -e "\n""Checking out ee-6.0.x""\n"
+#		git checkout ee-6.0.x --force
+#		git clean -d -f
+#		echo -e "\n""Creating new properties file""\n"
+#		echo app.server.parent.dir=E:/Deploy/60X > app.server.liferay.properties
+#		echo app.server.tomcat.dir=E:/Deploy/60X/tomcat-6.0.29 >> app.server.liferay.properties
+#		echo -e "\n""Compiling the 60X bundle""\n"
+#		ant deploy
+#		echo -e "\n""Starting the 60X bundle""\n"
+#		cd E:/Deploy/60X/tomcat-6.0.29/bin
+#		./catalina.sh jpda run
+#		;;
+#	6110)
+#		cd E:/Repositories/liferay-portal-ee-6.1.x
+#		echo -e "\n""Checking out ee-6.1.10""\n"
+#		git checkout ee-6.1.10 --force
+#		git clean -d -f
+#		echo -e "\n""Creating new properties file""\n"
+#		echo app.server.parent.dir=E:/Deploy/6110 > app.server.liferay.properties
+#		echo app.server.tomcat.dir=E:/Deploy/6110/tomcat-7.0.25 >> app.server.liferay.properties
+#		echo -e "\n""Compiling the 6110 bundle""\n"
+#		ant deploy
+#		echo -e "\n""Starting the 6110 bundle""\n"
+#		cd E:/Deploy/6110/tomcat-7.0.25/bin
+#		./catalina.sh jpda run
+#		;;
+#	6120)
+#		cd E:/Repositories/liferay-portal-ee-6.1.x
+#		echo -e "\n""Checking out ee-6.1.20""\n"
+#		git checkout ee-6.1.20 --force
+#		git clean -d -f
+#		echo -e "\n""Creating new properties file""\n"
+#		echo app.server.parent.dir=E:/Deploy/6120 > app.server.liferay.properties
+#		echo app.server.tomcat.dir=E:/Deploy/6120/tomcat-7.0.27 >> app.server.liferay.properties
+#		echo -e "\n""Compiling the 6120 bundle""\n"
+#		ant deploy
+#		echo -e "\n""Starting the 6120 bundle""\n"
+#		cd E:/Deploy/6120/tomcat-7.0.27/bin
+#		./catalina.sh jpda run
+#		;;
+#	61x)
+#		cd E:/Repositories/liferay-portal-ee-6.1.x
+#		echo -e "\n""Checking out ee-6.1.X""\n"
+#		git checkout ee-6.1.x --force
+#		git clean -d -f
+#		echo -e "\n""Creating new properties file""\n"
+#		echo app.server.parent.dir=E:/Deploy/61X > app.server.liferay.properties
+#		echo app.server.tomcat.dir=E:/Deploy/61X/tomcat-7.0.23 >> app.server.liferay.properties
+#		echo -e "\n""Compiling the 61X bundle""\n"
+#		ant deploy
+#		echo -e "\n""Starting the 61X bundle""\n"
+#		cd E:/Deploy/61X/tomcat-7.0.23/bin
+#		./catalina.sh jpda run
+#		;;
+#	trunk)
+#		cd E:/Repositories/liferay-portal-ee
+#		echo -e "\n""Checking out Trunk""\n"
+#		git checkout master --force
+#		git clean -d -f
+#		echo -e "\n""Creating new properties file""\n"
+#		echo app.server.parent.dir=E:/Deploy/trunk > app.server.liferay.properties
+#		echo app.server.tomcat.dir=E:/Deploy/trunk/tomcat-7.0.25 >> app.server.liferay.properties
+#		echo -e "\n""Compiling the Trunk bundle""\n"
+#		ant deploy
+#		echo -e "\n""Starting the Trunk bundle""\n"
+#		cd E:/Deploy/trunk/tomcat-7.0.25/bin
+#		./catalina.sh jpda run
+#		;;
+#	*)
+#esac
