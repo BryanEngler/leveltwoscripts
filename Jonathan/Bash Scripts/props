@@ -28,10 +28,22 @@ case $PWD in
 		cd E:/Deploy/6120
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
 		;;
+	liferay-portal-ee-6.1.30)
+		cd E:/Deploy/6130
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
 	liferay-portal-ee-6.1.x)
 		cd E:/Deploy/61x
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
-		;;		
+		;;
+	liferay-portal-ee-6.2.10)
+		cd E:/Deploy/6210
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
+	liferay-portal-ee-6.2.x)
+		cd E:/Deploy/62x
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
 	liferay-portal)
 		cd E:/Deploy/trunk
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties

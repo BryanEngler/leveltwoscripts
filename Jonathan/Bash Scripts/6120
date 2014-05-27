@@ -2,7 +2,7 @@
 #Run as source
 #Pattern: 6110 LPP LPE
 
-cd E:/Repositories/liferay-portal-ee-6.1.x
+cd E:/Repositories/liferay-portal-ee-6.1.20
 echo -e "\n""Checking out ee-6.1.20""\n"
 git checkout ee-6.1.20 --force
 git branch fix-pack-LPP-$1 fix-pack-base-6120

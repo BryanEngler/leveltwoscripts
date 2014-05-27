@@ -1,10 +1,9 @@
 #!/bin/sh
-#Usage - run $VERSION_NUMBER
+#Usage - portrun $PORT_NUMBER
 
-GREEN='\e[0;33m'
-NC='\e[0m' # No Color
+PWD=$(basename `pwd`)
 
-case $1 in
+case $PWD in
 	6010)
 		echo -e "\n""\033[32mRun 6010\033[0m"
 		cd E:/Deploy/6010/tomcat-6.0.29/bin
@@ -49,21 +48,8 @@ case $1 in
 		echo -e "\n""\033[32mRun Trunk\033[0m"
 		cd E:/Deploy/trunk/tomcat-7.0.27/bin
 		;;
-	liferay-portal-ee)
-		echo -e "\n""\033[32mRun Trunk\033[0m"
-		cd E:/Deploy/trunk/tomcat-7.0.27/bin
-		;;
 	*)
 esac
 
-case $2 in
-	-j)
-		echo -e "\033[32mWith JRebel\033[0m"
-		./catalina-rebel.sh jpda run
-		;;
-	"")
-		echo -e "\033[32mWithout JRebel\033[0m"
-		./catalina.sh jpda run
-		;;
-	*)
-esac
+echo -e "\033[32mRun on Port\033[0m"
+./run.sh $1

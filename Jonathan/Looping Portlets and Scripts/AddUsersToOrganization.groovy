@@ -11,6 +11,8 @@ for (int i = 0; i <= 1000; i++) {
 	User user = UserLocalServiceUtil.getUserByEmailAddress(companyId, i + "@liferay.com");
 
 	userIds[i] = user.getUserId();
+
+	System.out.println(i);
 }
 
 UserLocalServiceUtil.addOrganizationUsers(organizationId, userIds);

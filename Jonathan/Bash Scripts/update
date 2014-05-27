@@ -28,8 +28,18 @@ echo -e "\n""Checking out ee-6.0.x""\n"
 git checkout ee-6.0.x --force
 echo -e "\n""Merging upstream and 6.0.x""\n"
 git merge upstream/ee-6.0.x
-echo -e "\n""Pushing master to origin""\n"
+echo -e "\n""Pushing ee-6.0.x to origin""\n"
 git push origin ee-6.0.x:ee-6.0.x
+
+cd ..
+cd liferay-portal-ee-6.1.30
+echo -e "\n""\n""\033[32mUpdating liferay-portal-ee-6.1.30...\033[0m"
+echo -e "\n""Checking out ee-6.1.30""\n"
+git checkout ee-6.1.30 --force
+echo -e "\n""Merging upstream and 6.1.30""\n"
+git merge upstream/ee-6.1.30
+echo -e "\n""Pushing ee-6.1.30 to origin""\n"
+git push origin ee-6.1.30:ee-6.1.30
 
 cd ..
 cd liferay-portal-ee-6.1.x
@@ -38,8 +48,28 @@ echo -e "\n""Checking out ee-6.1.x""\n"
 git checkout ee-6.1.x --force
 echo -e "\n""Merging upstream and 6.1.x""\n"
 git merge upstream/ee-6.1.x
-echo -e "\n""Pushing master to origin""\n"
+echo -e "\n""Pushing ee-6.1.x to origin""\n"
 git push origin ee-6.1.x:ee-6.1.x
+
+cd ..
+cd liferay-portal-ee-6.2.10
+echo -e "\n""\n""\033[32mUpdating liferay-portal-ee-6.2.10...\033[0m"
+echo -e "\n""Checking out ee-6.2.10""\n"
+git checkout ee-6.2.10 --force
+echo -e "\n""Merging upstream and 6.2.10""\n"
+git merge upstream/ee-6.2.10
+echo -e "\n""Pushing ee-6.2.10 to origin""\n"
+git push origin ee-6.2.x:ee-6.2.10
+
+cd ..
+cd liferay-portal-ee-6.2.x
+echo -e "\n""\n""\033[32mUpdating liferay-portal-ee-6.2.x...\033[0m"
+echo -e "\n""Checking out ee-6.2.x""\n"
+git checkout ee-6.2.x --force
+echo -e "\n""Merging upstream and 6.2.x""\n"
+git merge upstream/ee-6.2.x
+echo -e "\n""Pushing ee-6.2.x to origin""\n"
+git push origin ee-6.2.x:ee-6.2.x
 
 cd ..
 cd liferay-plugins
