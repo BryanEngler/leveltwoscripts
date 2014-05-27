@@ -1,0 +1,46 @@
+#!/bin/sh
+#Usage - pr
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+PWD=$(basename `pwd`)
+
+case $PWD in
+	liferay-portal-ee-6.0.x)
+		echo -e "\n""\033[32mPull Request for 6.0.x\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.0.x...jonathanmccann:$BRANCH
+		;;
+	liferay-portal-ee-6.1.x)
+		echo -e "\n""\033[32mPull Request for 6.1.x\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.1.x...jonathanmccann:$BRANCH
+		;;
+	liferay-portal-ee-6.2.x)
+		echo -e "\n""\033[32mPull Request for 6.2.x\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.2.x...jonathanmccann:$BRANCH
+		;;	
+	liferay-portal)
+		echo -e "\n""\033[32mPull Request for Master\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-portal/pull/new/hhuijser:master...jonathanmccann:$BRANCH
+		;;
+	liferay-plugins-ee-6.0.x)
+		echo -e "\n""\033[32mPull Request for Plugins 6.0.x\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-plugins-ee/pull/new/hhuijser:ee-6.0.x...jonathanmccann:$BRANCH
+		;;
+	liferay-plugins-ee-6.1.x)
+		echo -e "\n""\033[32mPull Request for Plugins 6.1.x\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-plugins-ee/pull/new/hhuijser:ee-6.1.x...jonathanmccann:$BRANCH
+		;;
+	liferay-plugins-ee-6.2.x)
+		echo -e "\n""\033[32mPull Request for Plugins 6.2.x\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-plugins-ee/pull/new/hhuijser:ee-6.2.x...jonathanmccann:$BRANCH
+		;;
+	liferay-plugins-ee-7.0.x)
+		echo -e "\n""\033[32mPull Request for Plugins 7.0.x\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-plugins-ee/pull/new/hhuijser:ee-7.0.x...jonathanmccann:$BRANCH
+		;;
+	liferay-plugins)
+		echo -e "\n""\033[32mPull Request for Plugins Master\033[0m"
+		firefox https://github.com/jonathanmccann/liferay-plugins/pull/new/hhuijser:master...jonathanmccann:$BRANCH
+		;;
+	*)
+esac

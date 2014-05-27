@@ -1,0 +1,41 @@
+#!/bin/sh
+#Usage - pp
+
+PWD=$(basename `pwd`)
+
+case $PWD in
+	6010)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/6010/portal-impl/src/portal.properties
+		;;
+	6011)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/6011/portal-impl/src/portal.properties
+		;;
+	liferay-portal-ee-6.0.12)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.0.12/portal-impl/src/portal.properties
+		;;
+	liferay-portal-ee-6.0.x)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.0.x/portal-impl/src/portal.properties
+		;;
+	liferay-portal-ee-6.1.10)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.1.10/portal-impl/src/portal.properties
+		;;
+	liferay-portal-ee-6.1.20)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.1.20/portal-impl/src/portal.properties
+		;;
+	liferay-portal-ee-6.1.30)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.1.30/portal-impl/src/portal.properties
+		;;
+	liferay-portal-ee-6.1.x)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.1.x/portal-impl/src/portal.properties
+		;;
+	liferay-portal-ee-6.2.10)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.2.10/portal-impl/src/portal.properties
+		;;	
+	liferay-portal-ee-6.2.x)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.2.x/portal-impl/src/portal.properties
+		;;	
+	liferay-portal)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal/portal-impl/src/portal.properties
+		;;
+	*)
+esac
