@@ -1,22 +1,17 @@
 
-;  AutoHotKeyU64.ahk file is in D:\Repos\leveltwoscripts\bryan
-
 ;  QUICK REFERENCE
 
-;  capslock   command prompt on desktop  --  capslock  --  when explorer window is not active
-;  capslock   current directory command prompt  --  capslock  --  when explorer window is active
-;  ^d         delete data, temp, and work folders from liferay_home directory and copy license  --  control + d  --  when explorer window is active
-;  ^!i        ip address  --  control + alt + i
+;  `          command prompt on desktop  --  `  --  when explorer window is not active
+;  `          current directory command prompt  --  `  --  when explorer window is active
+;  ^`         send backtick  --  Ctrl + `
 ;  ^g         git bash command prompt in portal repo directory  --  control + g
-;  ^.         repo/hotfix menu  --  control + .
+;  ^.         hotfix script menu  --  control + .
 ;  ^t         new text doc  --  control + t  --  when explorer window is active
 ;  ^+r        reload the ahk script  --  control + shift + r  --  when in sublime
-;  ^r         create fix-pack-requirements.txt  --  control + r  --  when explorer window is active
-;  ^y         create fix-pack-resolved-conflicts.txt  --  control + y  --  when explorer window is active
 ;  F9         run tomcat from liferay_home directory  --  F9  --  when explorer window is active
 ;  ^\         swap slash direction in clipboard  --  Ctrl + \ 
 ;  ^/         swap slash direction in clipboard  --  Ctrl + / 
-;  ^!d        print current date  --  control + alt + d
+;  ^+d        print current date  --  control + shift + d
 ;  ^v         paste in command prompt  --  control + v  --  when console window is active
 ;  F4         exit command prompt  --  F4  --  when console window is active
 ;  XButton1   mouse "back" button  --  mouse back button  --  within 7zip
@@ -27,21 +22,35 @@
 
 ;GLOBAL VARIABLES - these need to be defined by the user
 
-emailAddress := "USERNAME@liferay.com"
-emailPassword := "PASSWORD"
-devToolPath := "D:/Liferay/Dev Tool"
-devToolCachePath = "%devToolPath%/cache"
-repoDir := "D:/Repos"
-repoDirPortal = "%repoDir%/liferay-portal"
+emailAddress := "liferaytest234@gmail.com"
+emailPassword := "testtest234"
 serverDir := "D:/Servers/liferay-portal"
+serverDir8 := "D:/Servers/liferay-portal-2"
+serverDir60x := "D:/Servers/liferay-portal-60x"
+serverDir61x := "D:/Servers/liferay-portal-61x"
+serverDir62x := "D:/Servers/liferay-portal-62x"
+serverDir70 := "D:/Servers/liferay-portal-70x"
+serverDir6012 := "D:/Servers/liferay-portal-6012"
+serverDir6110 := "D:/Servers/liferay-portal-6110"
+serverDir6120 := "D:/Servers/liferay-portal-6120"
+serverDir6130 := "D:/Servers/liferay-portal-6130"
+serverDir6210 := "D:/Servers/liferay-portal-6210"
 tomcatVersion := "7.0.27"
 mysqlDBname := "portal"
+mysqlDBname2 := "portal2"
+mysqlDBname60x := "portal60x"
+mysqlDBname61x := "portal61x"
+mysqlDBname62x := "portal62x"
+mysqlDBname70x := "portal70x"
+mysqlDBname6012 := "portal6012"
+mysqlDBname6110 := "portal6110"
+mysqlDBname6120 := "portal6120"
+mysqlDBname6130 := "portal6130"
+mysqlDBname6210 := "portal6210"
 mysqlPassword := "password"
+ojdbc := "D:\Liferay\misc\ojdbc14.jar"
 defaultPromptTitle := "Admin: C:\Windows\system32\cmd.exe"
-propmtTitle := "Admin:  "
-lic6010 := "D:\Liferay\LICENSE\license-portaldevelopment-developer-6.0-liferaycom.xml"
-lic6011 := "D:\Liferay\LICENSE\license-portaldevelopment-developer-6.0sp1-liferaycom.xml"
-lic6012 := "D:\Liferay\LICENSE\license-portaldevelopment-developer-6.0sp2-liferaycom.xml"
+lic60 := "D:\Liferay\LICENSE\license-portaldevelopment-developer-6.0sp2-liferaycom.xml"
 lic61 := "D:\Liferay\LICENSE\license-portaldevelopment-developer-6.1-liferaycom.xml"
 
 ;*******************************************************
@@ -54,53 +63,41 @@ lic61 := "D:\Liferay\LICENSE\license-portaldevelopment-developer-6.1-liferaycom.
 
 ;*******************************************************
 
-; command prompt on desktop  --  capslock  --  when explorer window is not active
+; command prompt on desktop  --  `  --  when explorer window is not active
 
 #IfWinNotActive ahk_class CabinetWClass
-CapsLock::
-commandPromptDesktop()
+`::
+runCommandPrompt("C:/Users/liferay/Desktop","CMD")
 Return
 #IfWinActive
 
 ;******************************************************
 
-; command prompt in current directory  --  capslock  --  when explorer window is active
+; command prompt in current directory  --  `  --  when explorer window is active
 
 #IfWinActive ahk_class CabinetWClass
-CapsLock::
-commandPromptDirectory()
+`::
+initCommandPrompt("CMD")
 Return
 #IfWinActive
 
 ;******************************************************
 
-; delete data, temp, and work folders from liferay_home directory and copy license  --  control + d  --  when explorer window is active
+; send backtick  --  Ctrl + `
 
-#IfWinActive ahk_class CabinetWClass
-^d::
-deleteTemp()
-Return
-#IfWinActive
+^`::SendInput %A_LoopReadLine%``
 
 ;******************************************************
-
-; ip address  --  control + alt + i
-
-^!i::
-getIP()
-Return
-
-;*******************************************************
 
 ; git bash command prompt in portal repo directory  --  control + g
 
 ^g::
-gitBash()
+Run, GitBashLogin.bat
 Return
 
 ;********************************************************
 
-; repo/hotfix menu  --  control + .
+; hotfix script menu  --  control + .
 
 ^.::
 MainMenu()
@@ -112,31 +109,11 @@ Return
 
 #IfWinActive ahk_class CabinetWClass
 ^t::
-newTextDoc()
+Send ^a!ei{AppsKey}wt
 Return
 #IfWinActive
 
 ;******************************************************
-
-; create fix-pack-requirements.txt  --  control + r  --  when explorer window is active
-
-#IfWinActive ahk_class CabinetWClass
-^r::
-newTextDocTitle("fix-pack-requirements")
-Return
-#IfWinActive
-
-;******************************************************
-
-; create fix-pack-resolved-conflicts.txt  --  control + y  --  when explorer window is active
-
-#IfWinActive ahk_class CabinetWClass
-^y::
-newTextDocTitle("fix-pack-resolved-conflicts")
-Return
-#IfWinActive
-
-;********************************************************
 
 ; reload the ahk script  --  control + shift + r  --  when in sublime
 
@@ -174,10 +151,10 @@ Return
 
 ;********************************************************
 
-; print current date  --  control + alt + d
+; print current date  --  control + shift + d
 
-^!d::
-FormatTime,date,,ShortDate
+^+d::
+FormatTime,date,,yyyy-M-d
 Send %date%
 Return
 
@@ -231,7 +208,6 @@ Send {Enter}
 Return
 #IfWinActive
 
-
 ;****************************************************************************************************
 
 ;****************************************************************************************************
@@ -240,38 +216,7 @@ Return
 ;ALIASES
 ;****************************************************************************************************
 
-
-::aa::ant all
-Return
-
-::ad::ant deploy
-Return
-
-::af::ant format-source
-Return
-
-::adusr::AUI().Get.script('https://raw.github.com/gist/6000522/add_users.js');
-Return
-
-::aw::ant war
-Return
-
-:o:clpe::ant create-lpe -Dlps=
-Return
-
-::cb::catalina.bat jpda run < nul
-Return
-
-::cda::cd D:/Repos/alloy-ui
-Return
-
-::cdp::cd D:/Repos/liferay-portal
-Return
-
-::cdl::cd D:/Repos/liferay-plugins
-Return
-
-:o:cdj::cd /d D:/Liferay/Jira
+::adur::AUI().Get.script('https://cdn.rawgit.com/BryanEngler/6000522/raw/add_usersM5.js');
 Return
 
 ::cdb::create database
@@ -280,25 +225,13 @@ Return
 ::ddb::drop database
 Return
 
-::e.::explorer .
-Return
-
-:*:fpi::fix-pack-includes{enter}
-Return
-
-:*:fpe::fix-pack-excludes{enter}
-Return  
-
-::ga::git add
-Return
-
 ::gb::git branch
 Return
 
-::gbi::git bisect
+::gbm::git branch -m
 Return
 
-::gbv::git bisect view
+::gbis::git bisect good
 Return
 
 ::gc::git checkout
@@ -307,97 +240,76 @@ Return
 ::gcb::git checkout -b
 Return
 
-::gce::git checkout ee-6.1.x
+:o:gce::git checkout ee-
 Return
 
-::gcf::git config --edit
+:o:gcm::git commit -m ""{Left}
 Return
 
-::gcfg::git config --global --edit
-Return
-
-::gcd::git clean -d
-Return
-
-::gch::git cherry-pick
-Return
-
-::gcp::git cherry-pick --no-commit
+:o:gcma::git commit -am ""{Left 1}  
 Return
 
 ::gd::git branch -D
 Return
 
-::gdt::git difftool
+::gdt::git difftool  &{left 3}
 Return
 
-::gdf::git diff
+::gfu::git fetch upstream
 Return
 
-::gf::git fetch upstream
+:o:gfb::git fetch git@github.com:/liferay-portal.git :{left 21}
 Return
 
-:o:gfb::git fetch git@github.com:username_to_fetch_from/repo_name.git their_branch_to_fetch:my_new_branch{left 72}
+:o:ghu::git@github.com:BryanEngler/liferay-portal-ee.git
 Return
 
-::gg::git gui
+:o:fzfp::git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git fix-pack-hotfix-:{left}
 Return
 
-::ggc::git gc --auto
+:o:zfp::https://github.com/zsoltbalogh/liferay-portal-ee/commits/fix-pack-hotfix-
 Return
 
-::gk::gitk
+::gk::gitk  &{left 3}
 Return
 
-:o:gkg::gitk --grep=LPS-
+:o:gkg::gitk --grep=LPS- &{left 2}
+Return
+
+:o:gkga::gitk --grep=AUI- &{left 2}
+Return
+
+:o:gkgs::gitk --grep=SOS- &{left 2}
 Return
 
 ::gl::git log --pretty=format:"%h  %C(cyan bold)%an    %CresetComitted: %cr    %C(yellow bold) %s" -5
 Return
 
-::gli::
-SendInput C:\Windows\SysWOW64\cmd.exe /c ""C:\Program Files (x86)\Git\bin\sh.exe" --login -i"{enter}
-Sleep 100
-SendInput echo -ne "\e]0;Admin: Git\007"{enter}
+:o:glg::git log --pretty=format:"%h %s" --grep=LPS-
 Return
 
-:o:gcm::git commit -a -m ""{Left}
+:o:gpd::git push origin : 
 Return
 
-::gcma::git commit -a --amend
-Return
-
-::gmt::git mergetool
-Return
-
-:o:gm::git merge upstream/
-Return
-
-::gp::git push origin
-Return
-
-:o:gpr::git fetch git@github.com:BryanEngler/liferay-portal-ee.git LPS-:LPS-{left 5}
-Return
-
-:o:gprl::git fetch git@github.com:BryanEngler/liferay-plugins-ee.git LPS-:LPS-{left 5}
-Return
-
-::gr::git reset head
-Return
-
-:o:grs::git reset --soft head
-Return
-
-:o:grh::git reset --hard head
-Return
+:o:gppd::git push pr : 
+Return 
 
 ::grb::git rebase
 Return
 
-::gs::git status
+:o:grbi::git rebase -i HEAD{^}
 Return
 
-::gsu::git submodule update
+:o:grh::git reset --hard{space} 
+Return
+
+:o:grhh::git reset --hard head{^}
+Return
+
+:o:grs::git reset --soft{space}
+Return
+
+:o:grsh::git reset --soft head{^}
 Return
 
 :o:gti::echo -ne "\e]0;\007"{Left 5}
@@ -406,42 +318,122 @@ Return
 ::gwc::git whatchanged --pretty=format:"%C(cyan bold) %an %C(yellow bold) %s" -5
 Return
 
-::hf::Hotfix.sh     ;USAGE- Hotfix.sh [VERSION] [LPP] [LPE]
+::gsol::c3332dbd-47fd-4727-b010-e3a22bc288b4
 Return
 
-::ipc::ipconfig
+::hf::Hotfix_LPP_VER    
 Return
 
-::lremail::
+::hfs::Hotfix_LPP_VER-S    
+Return
+
+:o:ltd::cd /d D:\Liferay\JiraC{Enter}ant lpe-tool -Ddate=
+Return
+
+:o:ltl::cd /d D:\Liferay\JiraC{Enter}ant lpe-tool -Dlps=
+Return
+
+:o:ltq::cd /d D:\Liferay\JiraC{Enter}ant lpe-tool -Dquery=
+Return
+
+::lrmail::
 SendRaw var input = AUI().one('#_137_pop3Host');input.val("pop.gmail.com");var input = AUI().one('#_137_pop3Port');input.val("995");var input = AUI().one('#_137_pop3User');input.val("%emailAddress%");var input = AUI().one('#_137_pop3Password');input.val("%emailPassword%");var input = AUI().one('#_137_smtpHost');input.val("smtp.gmail.com");var input = AUI().one('#_137_smtpPort');input.val("465");var input = AUI().one('#_137_smtpUser');input.val("%emailAddress%");var input = AUI().one('#_137_smtpPassword');input.val("%emailPassword%");
 Return
 
-::mys::
-SendInput mysql -u root -p%mysqlPassword%
-Return
-
-::np::notepad
-Return
-
-::pa::patching-tool auto-discovery
-Return
-
-::pf::patching-tool info
-Return
-
-::pi::patching-tool install
-Return
-
 ::rp::
-SendInput cd /d %serverDir%/tomcat-%tomcatVersion%/bin{Enter}title TC{Enter}catalina.bat jpda run < nul{enter}
+SendInput cd /d %serverDir%/tomcat-%tomcatVersion%/bin{Enter}title TC Master{Enter}cls{enter}catalina jpda run < nul{enter}
 Return
 
 ::rpc::
-SendInput cd /d %serverDir%{Enter}title TC{Enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}echo drop database %mysqlDBname%; create database %mysqlDBname%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina.bat jpda run < nul{enter}
+SendInput cd /d %serverDir%{Enter}title TC Master{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname%; create database %mysqlDBname%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
 Return
 
-::rpc0::
-SendInput cd /d %serverDir%{Enter}title TC{Enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic6012% ..\deploy{Enter}echo drop database %mysqlDBname%; create database %mysqlDBname%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina.bat jpda run < nul{enter}
+::rpj::
+SendInput cd /d %serverDir%/tomcat-%tomcatVersion%/bin{Enter}title TC Master{Enter}cls{enter}copy /y D:\Liferay\rebel.xml D:\Servers\liferay-portal\tomcat-7.0.27\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj::
+SendInput cd /d %serverDir%{Enter}title TC Master{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml D:\Servers\liferay-portal\tomcat-7.0.27\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname%; create database %mysqlDBname%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp2::
+SendInput cd /d %serverDir8%/tomcat-%tomcatVersion%/bin{Enter}title TC 8001{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc2::
+SendInput cd /d %serverDir8%{Enter}title TC 8001{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname2%; create database %mysqlDBname2%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp60x::
+SendInput cd /d %serverDir60x%/tomcat-%tomcatVersion%/bin{Enter}title TC 60x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc60::
+SendInput cd /d %serverDir60x%{Enter}title TC 60x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname60x%; create database %mysqlDBname60x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp6012::
+SendInput cd /d %serverDir6012%/tomcat-%tomcatVersion%/bin{Enter}title TC 6012{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6012::
+SendInput cd /d %serverDir6012%{Enter}title TC 6012{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6012%; create database %mysqlDBname6012%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp61::
+SendInput cd /d %serverDir61x%/tomcat-%tomcatVersion%/bin{Enter}title TC 61x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc61::
+SendInput cd /d %serverDir61x%{Enter}title TC 61x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname61x%; create database %mysqlDBname61x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp6110::
+SendInput cd /d %serverDir6110%/tomcat-%tomcatVersion%/bin{Enter}title TC 6110{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6110::
+SendInput cd /d %serverDir6110%{Enter}title TC 6110{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6110%; create database %mysqlDBname6110%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp6120::
+SendInput cd /d %serverDir6120%/tomcat-%tomcatVersion%/bin{Enter}title TC 6120{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6120::
+SendInput cd /d %serverDir6120%{Enter}title TC 6120{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6120%; create database %mysqlDBname6120%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp6130::
+SendInput cd /d %serverDir6130%/tomcat-%tomcatVersion%/bin{Enter}title TC 61x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6130::
+SendInput cd /d %serverDir6130%{Enter}title TC 61x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6130%; create database %mysqlDBname6130%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp62::
+SendInput cd /d %serverDir62x%/tomcat-%tomcatVersion%/bin{Enter}title TC 62x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc62::
+SendInput cd /d %serverDir62x%{Enter}title TC 62x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname62x%; create database %mysqlDBname62x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp6210::
+SendInput cd /d %serverDir6210%/tomcat-%tomcatVersion%/bin{Enter}title TC 62x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6210::
+SendInput cd /d %serverDir6210%{Enter}title TC 6210{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6210%; create database %mysqlDBname6210%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rp70::
+SendInput cd /d %serverDir70x%/tomcat-%tomcatVersion%/bin{Enter}title TC 70x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc70::
+SendInput cd /d %serverDir70x%{Enter}title TC 70x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname70x%; create database %mysqlDBname70x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
 Return
 
 ::sdb::show databases;
@@ -460,266 +452,20 @@ Return
 ;****************************************************************************************************
 
 
-checkIfBlacklisted()
-{
-	global
-	title := "Blacklist"
-	commandPromptPath(devToolCachePath,title)
-	InputBox, hotfix, Check The Blacklist, Enter The Number And Version (XXX-XXXX):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	Send grep hotfix-%hotfix% blacklist.txt{Enter}
-}
-
-commandPromptDesktop()
-{
-	commandPromptPath("C:/Users/liferay/Desktop","CMD")
-}
-
-commandPromptDirectory()
-{
-	ClipSaved := ClipboardAll
-	Send !d
-	Sleep 20
-	Send ^c
-	Sleep 30
-	commandPromptPath(Clipboard,"CMD")
-	Clipboard := ClipSaved
-	ClipSaved =
-}
-
-commandPromptPath(path,title)
-{
-	global
-	Run, cmd /K cd /d %path%
-	Sleep 20
-	WinWait %defaultPromptTitle%
-	WinActivate %defaultPromptTitle%
-	if (title != "") 
-	{
-		Send title %title%{Enter}
-	}
-}
-
-customersInstalledHotfixes()
-{
-	global
-	title := "Customer"
-	commandPromptPath(devToolCachePath,title)	
-	InputBox, customer, Show The Customers Hotfixes, Enter Customer Name:,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	Send GitLogin.bat{Enter}
-	Sleep 1000
-	Send echo -ne "\e]0;%title%\007"{Enter}CustomersInstalledHotfixes.sh %customer%{Enter}
-}
-
-checkForCollisions()
-{
-	global
-	title := "DT"
-	commandPromptPath(devToolPath,title)
-	InputBox, existing, Run The fp-dev-tool, Check An Existing Hotfix For A Different Customer? (Y or N):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	InputBox, version, Run The fp-dev-tool, Enter Version Number (6012/6110/6120):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	if (existing = "y")
-	{
-		InputBox, hotfix, Run The fp-dev-tool, Enter Hotfix Number (XXX):,,,,,370
-		WinActivate %propmtTitle%%title%
-		if (ErrorLevel == 1)
-		{
-			Send exit{Enter}
-			Return
-		}
-	}
-	InputBox, customer, Run The fp-dev-tool, Enter Customer Name:,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	if (existing = "n")
-	{
-		InputBox, plugin, Run The fp-dev-tool, Is This A Plugins Patch? (Y or N):,,,,,370
-		WinActivate %propmtTitle%%title%
-		if (ErrorLevel == 1)
-		{
-			Send exit{Enter}
-			Return
-		}
-	}
-	WinActivate %propmtTitle%%title%
-	if (existing = "y")
-	{
-		Send java -jar lib/fp-dev.jar %version% check hotfix-%hotfix% %customer%{Enter}
-	}
-	else if (plugin = "y")
-	{
-		Send java -jar lib/fp-dev.jar %version%-plugins %customer%{Enter}
-	}
-	else
-	{
-		Send java -jar lib/fp-dev.jar %version% %customer%{Enter}
-	} 
-}
-
-deleteTemp()
-{
-	global
-	title := "CMD"
-	ClipSaved := ClipboardAll
-	Send !d
-	Sleep 20
-	Send ^c
-	Sleep 20
-	commandPromptPath(Clipboard,title)
-	Send rmdir /Q /S .\data{Enter}cd tomcat{Tab}
-	Sleep 20
-	Send {Enter}rmdir /Q /S .\temp{Enter}
-	Sleep 20
-	Send rmdir /Q /S .\work{Enter}
-	InputBox, version, Copy A License, Enter Version Number (6010/6011/6012/61/n):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	if (version = "6010")
-	{
-		Send copy %lic6010% "%Clipboard%"\deploy{Enter}
-	}
-	else if (version = "6011")
-	{
-		Send copy %lic6011% "%Clipboard%"\deploy{Enter}
-	}
-	else if (version = "6012")
-	{
-		Send copy %lic6012% "%Clipboard%"\deploy{Enter}
-	}
-	else if (version = "61")
-	{
-		Send copy %lic61% "%Clipboard%"\deploy{Enter}
-	}
-	Send exit{Enter}
-	Clipboard := ClipSaved
-	ClipSaved =
-}
-
-existingHotfixesForLpe()
-{
-	global
-	title := "Existing Hotfixes"
-	commandPromptPath(devToolCachePath,title)
-	InputBox, lpe, Find A Hotfix, Enter The LPE Number (XXXX):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	Send GitLogin.bat{Enter}
-	Sleep 1000
-	Send echo -ne "\e]0;%title%\007"{Enter}ExistingHotfixesForLpe.sh %lpe%{Enter}
-}
-
-getIP()
-{
-	global
-	title := "IP"
-	commandPromptPath(`"%HOMEPATH%`\Desktop",title)
-	Send ipconfig | grep "IPv4"{Enter}
-}
-
-gitBash()
-{
-	global
-	commandPromptPath(repoDirPortal,"")
-	Send GitLogin.bat{Enter}
-}
-
-lpesResolvedByHotfix()
-{
-	global
-	title := "LPEs"
-	commandPromptPath(devToolCachePath,title)
-	InputBox, hotfix, Show Fixed Issues, Enter Hotfix Number (XXX):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	InputBox, version, Show Fixed Issues, Enter Version Number (6012/6110/6120):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	Send GitLogin.bat{Enter}
-	Sleep 1000
-	Send echo -ne "\e]0;%title%\007"{Enter}LpesResolvedByHotfix.sh %hotfix% %version%{Enter}
-}
-
-lppsAndCustomers()
-{
-	global
-	title := "LPPs"
-	commandPromptPath(devToolCachePath,title)
-	InputBox, hotfix, Show LPP's and Customers With This Hotfix, Enter Hotfix Number (XXX):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-	InputBox, version, Show LPP's and Customers With This Hotfix, Enter Version Number (6012/6110/6120):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}	
-	Send grep hotfix-%hotfix%-%version% hotfix-list.txt{Enter}
-}
-
 MainMenu()
 {
-	InputBox, option, Repo / Hotfix Menu,
+	InputBox, option, Run Hotfix Scripts,
 	(
-1 - New Hotfix Branch
-2 - Check For Collisions
-3 - Specific LPE - Existing Hotfixes
-4 - Single Hotfix - LPP's and Customer's
-5 - Single Hotfix - LPE's Resolved
-6 - Single Hotfix - Check If Blacklisted
-7 - Single Customer - Installed Hotfixes 
-8 - Update Dev Tool Cache
-9 - Update Repos
+1 - Check For Collisions
+2 - Existing Hotfixes for LPE
+3 - LPP's/Customers with Hotfix
+4 - Customer's Installed Hotfixes 
+5 - Customer's Fixed Issues
+6 - Check if Hotfix is Blacklisted
+7 - LPE's Resolved by Hotfix
 
 Enter Number:
-	),,400,300,,370
+	),,300,280,,370
 
 	if (ErrorLevel == 1)
 	{
@@ -727,148 +473,67 @@ Enter Number:
 	}
 	if (option = "1")
 	{
-		newHotfixBranch()
+		Run, sh.exe -c checkForCollisions
 		Return
 	}
 	else if (option = "2")
 	{
-		checkForCollisions()
+		Run, sh.exe -c existingHotfixesForLpe
 		Return
 	}
 	else if (option = "3")
 	{
-		existingHotfixesForLpe()
+		Run, sh.exe -c lppsAndCustomersWithHotfix
 		Return
 	}
 	else if (option = "4")
 	{
-		lppsAndCustomers()
+		Run, sh.exe -c customersInstalledHotfixes
 		Return
 	}
 	else if (option = "5")
 	{
-		lpesResolvedByHotfix()
+		Run, sh.exe -c customersFixedIssues
 		Return
 	}
 	else if (option = "6")
 	{
-		checkIfBlacklisted()
+		Run, sh.exe -c checkIfHotfixBlacklisted
 		Return
 	}
 	else if (option = "7")
 	{
-		customersInstalledHotfixes()
-		Return
-	}
-	else if (option = "8")
-	{
-		updateDevTool()
-		Return
-	}
-	else if (option = "9")
-	{
-		updateRepos()
+		Run, sh.exe -c lpesResolvedByHotfix
 		Return
 	}
 }
 
-newHotfixBranch()
+initCommandPrompt(title)
+{
+	ClipSaved := ClipboardAll
+	Send !d
+	Sleep 30
+	Send ^c
+	Sleep 30
+	runCommandPrompt(Clipboard,title)
+	Clipboard := ClipSaved
+	ClipSaved =
+}
+
+runCommandPrompt(path,title)
 {
 	global
-	commandPromptPath(repoDir,"")
-	Send GitLogin.bat{Enter}
-	InputBox, version, Create A New Fix Pack Branch, Enter Version Number (6012/6110/6120):,,,,,370
-	WinActivate %propmtTitle%GIT
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}exit{Enter}
-		Return
-	}
-	InputBox, lpp, Create A New Fix Pack Branch, Enter LPP Number:,,,,,370
-	WinActivate %propmtTitle%GIT
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}exit{Enter}
-		Return
-	}
-	InputBox, lpe, Create A New Fix Pack Branch, Enter LPE Number (or none):,,,,,370
-	WinActivate %propmtTitle%GIT
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}exit{Enter}
-		Return
-	}
-	else
-	{
-		Send echo -ne "\e]0;LPP-%lpp%\007"{Enter}cd liferay-portal{Enter}Hotfix.sh %version% %lpp% %lpe%{Enter}
-	}
-}
-
-newTextDoc()
-{
-	Send ^a!ei{AppsKey}wt
-}
-
-newTextDocTitle(title)
-{
-	newTextDoc()
-	Sleep 200
-	SendInput %title%{enter}
+	Run, cmd /K cd /d %path%
+	Sleep 20
+	WinWait %defaultPromptTitle%
+	WinActivate %defaultPromptTitle%
+	SendInput title %title% && cls{Enter}
 }
 
 runTC()
 {
-	global
-	ClipSaved := ClipboardAll
-	Send !d
-	Sleep 20
-	Send ^c
-	Sleep 20
-	commandPromptPath(Clipboard,"TC")
-	Clipboard := ClipSaved
-	ClipSaved =
-	Send cd to{Tab}{Enter}cd bin{Enter}catalina.bat jpda run < nul{Enter}
+	initCommandPrompt("TC")
+	Sleep 400
+	Send cd to{Tab}{Enter}cd bin{Enter}catalina run{Enter}
 }
 
-updateDevTool()
-{
-	global
-	title := "Udate DT"
-	commandPromptPath(devToolPath,title)
-	InputBox, version, Update the Dev Tool, Enter Version Number (6012/6110/6120):,,,,,370
-	WinActivate %propmtTitle%%title%
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}
-		Return
-	}
-  	Send fp-dev-tool.bat %version%{Enter}
-}
-
-updateRepos()
-{
-	global
-	commandPromptPath(repoDir,"")
-	Send GitLogin.bat{Enter}
-	InputBox, repo, Update Git Repos, Which Repo Would You Like To Update?`n(alloy / plugins / portal / all):,,,,,370
-	WinActivate %propmtTitle%GIT
-	if (ErrorLevel == 1)
-	{
-		Send exit{Enter}exit{Enter}
-		Return
-	}
-	Send echo -ne "\e]0;Updating Repos\007"
-	Send {Enter}
-	if (repo = "alloy" || repo = "all")
-	{
-		Send UpdateAlloy.sh{Enter}
-	}
-	if (repo = "plugins" || repo = "all")
-	{
-		Send UpdatePlugins.sh{Enter}
-	}
-	if (repo = "portal" || repo = "all")
-	{
-		Send UpdatePortal.sh{Enter}
-	}
-}
