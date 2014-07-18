@@ -1,0 +1,46 @@
+repeat='y'
+
+while [ $repeat == "y" ];
+	do
+		echo "Show The Customer's Hotfixes"
+		echo
+		read -p "Enter Customer Name:" Customer
+		read -p "Enter Version (6012/6110/6120):" Version
+		cd 'D:/Liferay/Dev Tool/cache/'
+		echo
+
+		grep -i $Customer- hotfix-list.txt |
+		sed 's: .*::' |
+
+		while read LINE;
+			do 
+				grep $LINE blacklist.txt
+				
+				if [ $? == 1 ]
+					then 
+						echo $LINE
+				fi
+			done |
+
+		while read LINE
+			do
+				grep -v Added
+				echo $LINE
+			done |
+
+		sed 's:hotfix-.*-.* .*::' | 
+		sed '/^$/d' |
+
+		while read LINE
+			do 
+				grep -i $LINE.*$Customer- hotfix-list.txt
+			done |
+
+		sed 's: :     :' | 
+		grep $Version
+
+		echo
+		read -p "Enter 'y' to run again, or 'n' to Exit:" repeat;
+		echo
+
+	done

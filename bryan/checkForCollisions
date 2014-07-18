@@ -1,0 +1,47 @@
+repeat='p'
+
+while [ $repeat == "p" ];
+	do
+		echo "Check for Collisions"
+		echo
+		read -p "Checking An Existing Hotfix? (Y or N):" Existing
+
+		if [ $Existing == 'y' ]
+			then 
+				read -p "Enter Hotfix Number (XXXX):" Number
+		fi
+
+		read -p "Enter Version (6012/6110/6120):" Version
+		read -p "Enter Customer Name:" Customer
+		echo
+		cd 'D:/Liferay/Dev Tool'
+
+		if [ $Existing == 'y' ]
+			then 
+				java -jar lib/fp-dev.jar $Version check hotfix-$Number $Customer
+			else
+				java -jar lib/fp-dev.jar $Version $Customer
+		fi 
+
+		echo
+		read -p "Enter 'y' to run again, 'n' to Exit, or 'p' for new parameters:" repeat;
+		echo
+
+		while [ $repeat == 'y' ]
+			do
+				if [ $Existing == 'y' ]
+					then 
+						java -jar lib/fp-dev.jar $Version check hotfix-$Number $Customer
+					else
+						java -jar lib/fp-dev.jar $Version $Customer
+				fi 
+			
+				echo
+				read -p "Enter 'y' to run again, 'n' to Exit, or 'p' for new parameters:" repeat;
+				echo
+
+			done
+
+	done
+
+echo

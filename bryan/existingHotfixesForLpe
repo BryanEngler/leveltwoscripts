@@ -1,0 +1,44 @@
+repeat='y'
+
+while [ $repeat == "y" ];
+	do
+		echo "Find existing hotfixes for an LPE"
+		echo
+		read -p "Enter The LPE Number (XXXX):" Number
+		read -p "Enter Version (6012/6110/6120):" Version
+		cd 'D:/Liferay/Dev Tool/cache/'
+		cd $Version
+
+		grep LPE-$Number *.xml | 
+		grep fixed-issues | 
+		sed 's:fix-pack-::' | 
+		sed 's:.xml.*::' | 
+		grep ^hotfix | 
+
+		while read LINE
+			do
+				grep $LINE ../blacklist.txt
+				
+				if [ $? == 1 ]
+					then 
+						echo $LINE
+				fi
+			done |
+
+		grep -v Added | 
+		sed 's:hotfix-.*-.* .*::' | 
+		sed '/^$/d' | 
+
+		while read LINE
+			do
+				grep $LINE ../hotfix-list.txt
+			done | 
+
+		sed 's: :    :'
+
+		echo
+		read -p "Enter 'y' to run again, or 'n' to Exit:" repeat;
+		echo
+
+	done
+

@@ -1,0 +1,20 @@
+repeat='y'
+
+while [ $repeat == "y" ];
+	do
+		echo "Find LPE's fixed by a hotfix"
+		echo
+		read -p "Enter version (6012/6110/6120):" Version
+		read -p "Enter hotfix number:" Number
+		echo
+		cd 'D:/Liferay/Dev Tool/cache/'$Version
+
+		grep "<fixed-issues>" fix-pack-hotfix-$Number-$Version.xml |
+		sed 's:<fixed-issues>::' |
+		sed 's:</fixed-issues>::' 
+
+		echo
+		read -p "Enter 'y' to run again, or 'n' to Exit:" repeat;
+		echo
+
+	done
