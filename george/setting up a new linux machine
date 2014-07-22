@@ -1,0 +1,80 @@
+## SETTING UP AND INSTALLING JAVA
+#
+# Remove OpenJDK installation
+sudo apt-get update && apt-get remove openjdk*
+
+# Download JDK (64-bit version; tar.gz)
+# Extract tarball
+tar -zxvf JDK_FILE.tar.gz
+
+# If file is .bin
+chmod +x JDK_FILE.bin
+./JDK_FILE.bin
+
+# Create folder in /opt for java
+sudo mkdir -p /opt/java
+
+# Move extracted folder to /opt/java
+sudo mv JDK_FOLDER /opt/java
+
+# Make JDK system default.
+sudo update-alternatives --install "/usr/bin/java" "java" "/opt/java/JDK_FOLDER/bin/java" 1
+sudo update-alternatives --set java /opt/java/JDK_FOLDER/bin/java
+
+# Test installed java version.
+java -version
+# should see something like:
+# java version "1.7.0_25" Java(TM) SE Runtime Environment (build 1.7.0_25-b15) Java HotSpot(TM) 64-Bit Server VM (build 23.25-b01, mixed mode)
+
+
+
+
+
+
+
+
+
+## SETTING UP AND INSTALLING SUBLIME TEXT 2
+#
+# Download file (64-bit version; tar.bz2)
+# Extract tarball
+tar -jxvf SUBLIME_TEXT_2_FILE.tar.bz2
+
+# Move files to folder called "sublime"
+sudo mv Sublime\ Text\ 2 sublime
+
+# Move folder "sublime" to /opt
+sudo mv sublime /opt/
+
+# Create executable
+sudo touch /usr/bin/sublime_text
+sudo chmod 775 /usr/bin/sublime_text
+
+# Edit file
+gksu gedit /usr/bin/sublime_text
+
+# Copy and paste this text:
+------
+#!/bin/sh
+#export MOZILLA_FIVE_HOME="/usr/lib/mozilla/"
+export SUBLIME_HOME="/opt/sublime"
+
+$SUBLIME_HOME/sublime_text "$*"
+------
+
+# Edit file
+gksu gedit /usr/share/applications/sublime.desktop
+
+# Copy and paste this text:
+------
+[Desktop Entry]
+Encoding=UTF-8
+Name=Sublime Text
+Comment=Sublime Text 2
+Exec=sublime_text
+Icon=/opt/sublime/Icon/256x256/sublime_text.png
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Utility;TextEditor;
+StartupNotify=true
+------

@@ -1,0 +1,6 @@
+sudo add-apt-repository ppa:webupd8team/sublime-text-2
+sudo apt-get update
+sudo apt-get install sublime-text
+
+sudo sublime /usr/share/applications/defaults.list
+#then replace gedit.desktop with the new sublime.desktop file (look in /usr/share/applications for exact name)
