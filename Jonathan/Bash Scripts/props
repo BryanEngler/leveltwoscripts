@@ -44,6 +44,10 @@ case $PWD in
 		cd E:/Deploy/62x
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
 		;;
+	liferay-portal-ee-7.0.x)
+		cd E:/Deploy/70x
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties
+		;;
 	liferay-portal)
 		cd E:/Deploy/trunk
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" portal-ext.properties

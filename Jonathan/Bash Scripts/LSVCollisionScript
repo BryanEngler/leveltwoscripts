@@ -1,0 +1,4 @@
+echo -e "\n""PortalRequestProcessor""\n"
+find -name "PortalRequestProcessor.java" | grep "6.0.11" > clientsWithPortalRequestProcessor.txt
+echo -e "\n""PortletRequestImpl""\n"
+find -name "PortletRequestImpl.java" | grep "6.0.11" > clientsWithPortletRequestImp.txt

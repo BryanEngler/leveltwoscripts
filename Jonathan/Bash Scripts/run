@@ -44,7 +44,11 @@ case $1 in
 	liferay-portal-ee-6.2.x)
 		echo -e "\n""\033[32mRun 62x\033[0m"
 		cd E:/Deploy/62x/tomcat-7.0.27/bin
-		;;	
+		;;
+	liferay-portal-ee-7.0.x)
+		echo -e "\n""\033[32mRun 70x\033[0m"
+		cd E:/Deploy/70x/tomcat-7.0.27/bin
+		;;
 	liferay-portal)
 		echo -e "\n""\033[32mRun Trunk\033[0m"
 		cd E:/Deploy/trunk/tomcat-7.0.27/bin

@@ -102,6 +102,14 @@ case $PWD in
 		mysql --user=root --password=test -e 'drop database sixtwox;'
 		mysql --user=root --password=test -e 'create database sixtwox character set utf8;'
 		;;
+	liferay-portal-ee-7.0.x)
+		echo -e "\n""\n""\033[32mClean 70x\033[0m"
+		rm -r E:/Deploy/70x/data/*
+		rm -r E:/Deploy/70x/tomcat-7.0.27/temp/*
+		rm -r E:/Deploy/70x/tomcat-7.0.27/work/*
+		mysql --user=root --password=test -e 'drop database sevenohx;'
+		mysql --user=root --password=test -e 'create database sevenohx character set utf8;'
+		;;
 	liferay-portal)
 		echo -e "\n""\n""\033[32mClean Trunk\033[0m"
 		rm -r E:/Deploy/trunk/data/*

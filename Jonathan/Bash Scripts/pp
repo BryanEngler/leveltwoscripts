@@ -30,10 +30,13 @@ case $PWD in
 		;;
 	liferay-portal-ee-6.2.10)
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.2.10/portal-impl/src/portal.properties
-		;;	
+		;;
 	liferay-portal-ee-6.2.x)
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-6.2.x/portal-impl/src/portal.properties
-		;;	
+		;;
+	liferay-portal-ee-7.0.x)
+		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal-ee-7.0.x/portal-impl/src/portal.properties
+		;;
 	liferay-portal)
 		"/c/Program Files/Sublime Text 2/sublime_text.exe" /e/Repositories/liferay-portal/portal-impl/src/portal.properties
 		;;
