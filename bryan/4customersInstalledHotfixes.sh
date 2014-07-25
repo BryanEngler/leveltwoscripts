@@ -1,11 +1,14 @@
-repeat='y'
 
-while [ $repeat == "y" ];
+echo -ne "\e]0;Customer's Hotfixes\007"
+echo "Show The Customer's Hotfixes"
+echo
+		
+repeat='r'
+
+while [ $repeat == "r" ];
 	do
-		echo "Show The Customer's Hotfixes"
-		echo
+		read -p "Enter Version:" Version
 		read -p "Enter Customer Name:" Customer
-		read -p "Enter Version (6012/6110/6120):" Version
 		cd 'D:/Liferay/Dev Tool/cache/'
 		echo
 
@@ -40,7 +43,7 @@ while [ $repeat == "y" ];
 		grep $Version
 
 		echo
-		read -p "Enter 'y' to run again, or 'n' to Exit:" repeat;
+		read -p "Press 'R' to run again, or 'Enter' to exit:" repeat;
 		echo
 
 	done

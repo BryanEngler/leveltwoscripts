@@ -22,20 +22,22 @@ git rev-parse --is-inside-work-tree 1>nul 2>nul
 
 if [ $? == 0 ]
 	then
-		git status > C:/Users/liferay/Desktop/Bryan/commands/tmp/xstat.txt 2>nul
+		tmpStatusFile="C:/Users/liferay/Desktop/Bryan/commands/tmp/status.txt"
 
-		if [ "$(grep "Unmerged" C:/Users/liferay/Desktop/Bryan/commands/tmp/xstat.txt)" == "# Unmerged paths:" ]
+		git status > $tmpStatusFile 2>nul
+
+		if [ "$(grep "Unmerged" $tmpStatusFile)" == "# Unmerged paths:" ]
 			then
 				echo "\e[1;34m$(__git_ps1)\e[0m"
 
-		elif [ "$(grep "Untracked" C:/Users/liferay/Desktop/Bryan/commands/tmp/xstat.txt)" == "# Untracked files:" ]
+		elif [ "$(grep "Untracked" $tmpStatusFile)" == "# Untracked files:" ]
 			then echo "\e[1;31m$(__git_ps1)\e[0m"
 
-		elif [ "$(grep "staged" C:/Users/liferay/Desktop/Bryan/commands/tmp/xstat.txt)" == "# Changes not staged for commit:" ]
+		elif [ "$(grep "staged" $tmpStatusFile)" == "# Changes not staged for commit:" ]
 			then
 				echo "\e[1;33m$(__git_ps1)\e[0m"
 
-		elif [ "$(grep "committed" C:/Users/liferay/Desktop/Bryan/commands/tmp/xstat.txt)" == "# Changes to be committed:" ]
+		elif [ "$(grep "committed" $tmpStatusFile)" == "# Changes to be committed:" ]
 			then
 				echo "\e[32m$(__git_ps1)\e[0m"
 
@@ -62,36 +64,40 @@ alias ad="ant deploy"
 alias adf="ant deploy-fast"
 alias af="ant format-source"
 alias aw="ant war"
-alias k=". k"
-alias cda="cd D:/Repos/alloy-ui; echo -ne \"\\e]0;Alloy\\007\""
-alias cdc="cd C:/Users/liferay/Desktop/Bryan/commands; echo -ne \"\\e]0;Commands\\007\""
-alias cdl="cd D:/Repos/liferay-plugins; echo -ne \"\\e]0;Plugins Master\\007\""
-alias cdl2="cd D:/Repos/liferay-plugins-2; echo -ne \"\\e]0;Plugins 2\\007\""
-alias cdl60="cd D:/Repos/liferay-plugins-60x; echo -ne \"\\e]0;Plugins 60x\\007\""
-alias cdl61="cd D:/Repos/liferay-plugins-61x; echo -ne \"\\e]0;Plugins 61x\\007\""
-alias cdl62="cd D:/Repos/liferay-plugins-62x; echo -ne \"\\e]0;Plugins 62x\\007\""
-alias cdl70="cd D:/Repos/liferay-plugins-70x; echo -ne \"\\e]0;Plugins 70x\\007\""
-alias cdl6012="cd D:/Repos/liferay-plugins-6012; echo -ne \"\\e]0;Plugins 6012\\007\""
-alias cdl6110="cd D:/Repos/liferay-plugins-6110; echo -ne \"\\e]0;Plugins 6110\\007\""
-alias cdl6120="cd D:/Repos/liferay-plugins-6120; echo -ne \"\\e]0;Plugins 6120\\007\""
-alias cdl6130="cd D:/Repos/liferay-plugins-6130; echo -ne \"\\e]0;Plugins 6130\\007\""
-alias cdl6210="cd D:/Repos/liferay-plugins-6210; echo -ne \"\\e]0;Plugins 6210\\007\""
-alias cdp="cd D:/Repos/liferay-portal; echo -ne \"\\e]0;Portal Master\\007\""
-alias cdp2="cd D:/Repos/liferay-portal-2; echo -ne \"\\e]0;Portal 2\\007\""
-alias cdp60="cd D:/Repos/liferay-portal-60x; echo -ne \"\\e]0;Portal 60x\\007\""
-alias cdp61="cd D:/Repos/liferay-portal-61x; echo -ne \"\\e]0;Portal 61x\\007\""
-alias cdp62="cd D:/Repos/liferay-portal-62x; echo -ne \"\\e]0;Portal 62x\\007\""
-alias cdp70="cd D:/Repos/liferay-portal-70x; echo -ne \"\\e]0;Portal 70x\\007\""
-alias cdp6012="cd D:/Repos/liferay-portal-6012; echo -ne \"\\e]0;Portal 6012\\007\""
-alias cdp6110="cd D:/Repos/liferay-portal-6110; echo -ne \"\\e]0;Portal 6110\\007\""
-alias cdp6120="cd D:/Repos/liferay-portal-6120; echo -ne \"\\e]0;Portal 6120\\007\""
-alias cdp6130="cd D:/Repos/liferay-portal-6130; echo -ne \"\\e]0;Portal 6130\\007\""
-alias cdp6210="cd D:/Repos/liferay-portal-6210; echo -ne \"\\e]0;Portal 6210\\007\""
-alias cds="cd D:/Repos/leveltwoscripts; echo -ne \"\\e]0;leveltwoscripts\\007\""
-alias cdj="cd D:/Liferay/JiraC/src"
+alias cda="cd D:/Repos/alloy-ui; echo -ne '\e]0;Alloy\007'"
+alias cdc="cd C:/Users/liferay/Desktop/Bryan/commands; echo -ne '\e]0;Commands\007'"
 alias cdi="cd portal-impl"
+alias cdj="cd D:/Liferay/JiraC/src; echo -ne '\e]0;JiraC\007'"
+alias cdl="cd D:/Repos/liferay-plugins; echo -ne '\e]0;Plugins Master\007'"
+alias cdl2="cd D:/Repos/liferay-plugins-2; echo -ne '\e]0;Plugins 2\007'"
+alias cdl60="cd D:/Repos/liferay-plugins-60x; echo -ne '\e]0;Plugins 60x\007'"
+alias cdl61="cd D:/Repos/liferay-plugins-61x; echo -ne '\e]0;Plugins 61x\007'"
+alias cdl62="cd D:/Repos/liferay-plugins-62x; echo -ne '\e]0;Plugins 62x\007'"
+alias cdl70="cd D:/Repos/liferay-plugins-70x; echo -ne '\e]0;Plugins 70x\007'"
+alias cdl6012="cd D:/Repos/liferay-plugins-6012; echo -ne '\e]0;Plugins 6012\007'"
+alias cdl6110="cd D:/Repos/liferay-plugins-6110; echo -ne '\e]0;Plugins 6110\007'"
+alias cdl6120="cd D:/Repos/liferay-plugins-6120; echo -ne '\e]0;Plugins 6120\007'"
+alias cdl6130="cd D:/Repos/liferay-plugins-6130; echo -ne '\e]0;Plugins 6130\007'"
+alias cdl6210="cd D:/Repos/liferay-plugins-6210; echo -ne '\e]0;Plugins 6210\007'"
+alias cdp="cd D:/Repos/liferay-portal; echo -ne '\e]0;Portal Master\007'"
+alias cdp2="cd D:/Repos/liferay-portal-2; echo -ne '\e]0;Portal 2\007'"
+alias cdp60="cd D:/Repos/liferay-portal-60x; echo -ne '\e]0;Portal 60x\007'"
+alias cdp61="cd D:/Repos/liferay-portal-61x; echo -ne '\e]0;Portal 61x\007'"
+alias cdp62="cd D:/Repos/liferay-portal-62x; echo -ne '\e]0;Portal 62x\007'"
+alias cdp70="cd D:/Repos/liferay-portal-70x; echo -ne '\e]0;Portal 70x\007'"
+alias cdp6012="cd D:/Repos/liferay-portal-6012; echo -ne '\e]0;Portal 6012\007'"
+alias cdp6110="cd D:/Repos/liferay-portal-6110; echo -ne '\e]0;Portal 6110\007'"
+alias cdp6120="cd D:/Repos/liferay-portal-6120; echo -ne '\e]0;Portal 6120\007'"
+alias cdp6130="cd D:/Repos/liferay-portal-6130; echo -ne '\e]0;Portal 6130\007'"
+alias cdp6210="cd D:/Repos/liferay-portal-6210; echo -ne '\e]0;Portal 6210\007'"
+alias cds="cd D:/Repos/leveltwoscripts; echo -ne '\e]0;leveltwoscripts\007'"
 alias cdw="cd portal-web"
 alias ed="explorer ."
+alias fpr="st fix-pack-requirements.txt"
+alias fprc="st fix-pack-resolved-conflicts.txt"
+alias fpfi="st fix-pack-fixed-issues.txt"
+alias fpi="st fix-pack-includes.txt"
+alias fpe="st fix-pack-excludes.txt"
 alias ga="git add"
 alias gaa="git add -A"
 alias gbi="git bisect"
@@ -104,27 +110,125 @@ alias gcfg="git config --global --edit &"
 alias gch="git cherry-pick"
 alias gcp="git cherry-pick --no-commit"
 alias gdf="git diff"
-alias gf="git fetch upstream; pushBranches"
-alias gft="git fetch upstream --tags"
-alias gg="git gui"
+alias gf="git fetch upstream; pushBranches.sh"
+alias gft="git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git --tags; git fetch upstream --tags"
 alias gmt="git mergetool"
-alias gp='BRANCH=$(git rev-parse --abbrev-ref HEAD); git push origin $BRANCH -f'
-alias gpp='BRANCH=$(git rev-parse --abbrev-ref HEAD); git push pr $BRANCH -f'
 alias gr="git reset"
 alias grbc="git rebase --continue"
 alias gs="git status"
-alias fpr="st fix-pack-requirements.txt"
-alias fprc="st fix-pack-resolved-conflicts.txt"
-alias fpfi="st fix-pack-fixed-issues.txt"
-alias fpi="st fix-pack-includes.txt"
-alias fpe="st fix-pack-excludes.txt"
+alias mys="mysql -u root -ppassword"
+alias myt="jira -a getissuelist --filter='Current Issues' --columns=key,'Date due',summary"
 
 
-function glog() {
+function abs() {
+	ant build-service-$1
+}
+
+function acp() {
+	#auto cherry pick commits
+	#usage acp [REGEX IN COMMIT MESSAGE TO MATCH] [BRANCH] {limit} - acp LPS-12345 ee-6.1.x 3
+
+	tempacp="C:/Users/liferay/Desktop/Bryan/commands/tmp/tempacpfile.txt"
+
+	if [ $# -eq 2 ]
+		then
+			git log --pretty=format:"%h" --grep="$1" $2 | 
+			tac.sh > $tempacp
+			trimblank.sh $tempacp
+			cat $tempacp | 
+			
+			while read ID
+				do
+					echo
+					git cherry-pick $ID
+
+					if [ $? != 0 ]
+						then 
+							echo
+							echo Cherry Pick FAILED
+							exit
+					fi
+				done
+
+			rm $tempacp
+		
+		else
+			git log --pretty=format:"%h" --grep="$1" $2 | 
+			head -$3 | 
+			tac.sh > $tempacp
+			trimblank.sh $tempacp
+			cat $tempacp |
+
+			while read ID
+				do
+					echo
+					git cherry-pick $ID
+					
+					if [ $? != 0 ]
+						then 
+							echo
+							echo Cherry Pick FAILED
+							exit
+					fi
+				done
+
+			rm $tempacp
+	fi
+}
+
+function gkl() {
 	git ls-files | grep -i $1 | xargs gitk $2 &
 }
 
-function gmu() {
+function gm() {
 	BRANCH=$(git rev-parse --abbrev-ref HEAD)
 	git merge upstream/$BRANCH
+}
+
+function gp() {
+	if [ $# -eq 0 ]
+		then 
+			BRANCH=$(git rev-parse --abbrev-ref HEAD)
+			git push origin $BRANCH -f
+		else 
+			git push origin $1 -f
+	fi
+}
+
+function gpp() {
+	if [ $# -eq 0 ]
+		then 
+			BRANCH=$(git rev-parse --abbrev-ref HEAD)
+			git push pr $BRANCH -f
+		else 
+			git push pr $1 -f
+	fi
+}
+
+function Hotfix-LPP-VERSION() {
+	cd D:/Repos/liferay-portal-$2
+	git checkout -b LPP-$1-$2 fix-pack-base-$2
+}
+
+function Hotfix-LPP-VERSION-SDH() {
+	cd D:/Repos/liferay-portal-$2
+	git checkout -b LPP-$1-$2-SDH fix-pack-base-$2
+}
+
+function k() {
+	#backs up one directory. or X directories if you supply an argument
+
+	if [ $# -eq 0 ]
+		then
+			cd ..
+		else
+			for ((i=0; i<$1; i++));
+				do 
+					cd ..
+				done
+	fi
+}
+
+function st() {
+	"C:\Program Files\Sublime Text 2\sublime_text.exe" $1
 }

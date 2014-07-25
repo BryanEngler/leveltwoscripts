@@ -1,17 +1,20 @@
+
+echo -ne "\e]0;Check for Collisions\007"
+echo "Check For Collisions"
+echo
+		
 repeat='p'
 
 while [ $repeat == "p" ];
 	do
-		echo "Check for Collisions"
-		echo
 		read -p "Checking An Existing Hotfix? (Y or N):" Existing
+		read -p "Enter Version:" Version
 
 		if [ $Existing == 'y' ]
 			then 
-				read -p "Enter Hotfix Number (XXXX):" Number
+				read -p "Enter Hotfix Number:" Number
 		fi
 
-		read -p "Enter Version (6012/6110/6120):" Version
 		read -p "Enter Customer Name:" Customer
 		echo
 		cd 'D:/Liferay/Dev Tool'
@@ -24,10 +27,10 @@ while [ $repeat == "p" ];
 		fi 
 
 		echo
-		read -p "Enter 'y' to run again, 'n' to Exit, or 'p' for new parameters:" repeat;
+		read -p "Press 'R' to run again, 'P' for new parameters, or 'Enter' to exit:" repeat;
 		echo
 
-		while [ $repeat == 'y' ]
+		while [ $repeat == 'r' ]
 			do
 				if [ $Existing == 'y' ]
 					then 
@@ -37,7 +40,7 @@ while [ $repeat == "p" ];
 				fi 
 			
 				echo
-				read -p "Enter 'y' to run again, 'n' to Exit, or 'p' for new parameters:" repeat;
+				read -p "Press 'R' to run again, 'P' for new parameters, or 'Enter' to exit:" repeat;
 				echo
 
 			done

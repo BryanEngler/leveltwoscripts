@@ -1,11 +1,14 @@
-repeat='y'
 
-while [ $repeat == "y" ];
+echo -ne "\e]0;Existing hotfixes LPE\007"
+echo "Find Existing Hotfixes For An LPE"
+echo
+		
+repeat='r'
+
+while [ $repeat == "r" ];
 	do
-		echo "Find existing hotfixes for an LPE"
-		echo
-		read -p "Enter The LPE Number (XXXX):" Number
-		read -p "Enter Version (6012/6110/6120):" Version
+		read -p "Enter Version:" Version
+		read -p "Enter LPE Number:" Number
 		cd 'D:/Liferay/Dev Tool/cache/'
 		cd $Version
 
@@ -37,8 +40,7 @@ while [ $repeat == "y" ];
 		sed 's: :    :'
 
 		echo
-		read -p "Enter 'y' to run again, or 'n' to Exit:" repeat;
+		read -p "Press 'R' to run again, or 'Enter' to exit:" repeat;
 		echo
 
 	done
-

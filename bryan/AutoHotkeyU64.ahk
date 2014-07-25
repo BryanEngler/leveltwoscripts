@@ -29,7 +29,7 @@ serverDir8 := "D:/Servers/liferay-portal-2"
 serverDir60x := "D:/Servers/liferay-portal-60x"
 serverDir61x := "D:/Servers/liferay-portal-61x"
 serverDir62x := "D:/Servers/liferay-portal-62x"
-serverDir70 := "D:/Servers/liferay-portal-70x"
+serverDir70x := "D:/Servers/liferay-portal-70x"
 serverDir6012 := "D:/Servers/liferay-portal-6012"
 serverDir6110 := "D:/Servers/liferay-portal-6110"
 serverDir6120 := "D:/Servers/liferay-portal-6120"
@@ -216,7 +216,7 @@ Return
 ;ALIASES
 ;****************************************************************************************************
 
-::adur::AUI().Get.script('https://cdn.rawgit.com/BryanEngler/6000522/raw/add_usersM5.js');
+::adur::AUI().Get.script('https://cdn.rawgit.com/BryanEngler/4a3cbf5b9c340085f09a/raw/add_usersM6.js');
 Return
 
 ::cdb::create database
@@ -231,10 +231,13 @@ Return
 ::gbm::git branch -m
 Return
 
-::gbis::git bisect good
+::gc::git checkout
 Return
 
-::gc::git checkout
+:o:gcfp::git checkout fix-pack-base-
+Return
+
+:o:gchf::git checkout fix-pack-hotfix-
 Return
 
 ::gcb::git checkout -b
@@ -255,19 +258,13 @@ Return
 ::gdt::git difftool  &{left 3}
 Return
 
-::gfu::git fetch upstream
-Return
-
 :o:gfb::git fetch git@github.com:/liferay-portal.git :{left 21}
 Return
 
+::gfu::git fetch upstream
+Return
+
 :o:ghu::git@github.com:BryanEngler/liferay-portal-ee.git
-Return
-
-:o:fzfp::git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git fix-pack-hotfix-:{left}
-Return
-
-:o:zfp::https://github.com/zsoltbalogh/liferay-portal-ee/commits/fix-pack-hotfix-
 Return
 
 ::gk::gitk  &{left 3}
@@ -321,10 +318,10 @@ Return
 ::gsol::c3332dbd-47fd-4727-b010-e3a22bc288b4
 Return
 
-::hf::Hotfix_LPP_VER    
+::hf::Hotfix-LPP-VERSION  
 Return
 
-::hfs::Hotfix_LPP_VER-S    
+::hfs::Hotfix-LPP-VERSION-SDH  
 Return
 
 :o:ltd::cd /d D:\Liferay\JiraC{Enter}ant lpe-tool -Ddate=
@@ -364,7 +361,7 @@ Return
 SendInput cd /d %serverDir8%{Enter}title TC 8001{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname2%; create database %mysqlDBname2%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
 Return
 
-::rp60x::
+::rp60::
 SendInput cd /d %serverDir60x%/tomcat-%tomcatVersion%/bin{Enter}title TC 60x{Enter}cls{enter}catalina jpda run < nul{enter}
 Return
 
@@ -405,11 +402,11 @@ SendInput cd /d %serverDir6120%{Enter}title TC 6120{Enter}cls{enter}rmdir /Q /S 
 Return
 
 ::rp6130::
-SendInput cd /d %serverDir6130%/tomcat-%tomcatVersion%/bin{Enter}title TC 61x{Enter}cls{enter}catalina jpda run < nul{enter}
+SendInput cd /d %serverDir6130%/tomcat-%tomcatVersion%/bin{Enter}title TC 6130{Enter}cls{enter}catalina jpda run < nul{enter}
 Return
 
 ::rpc6130::
-SendInput cd /d %serverDir6130%{Enter}title TC 61x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6130%; create database %mysqlDBname6130%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+SendInput cd /d %serverDir6130%{Enter}title TC 6130{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6130%; create database %mysqlDBname6130%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
 Return
 
 ::rp62::
@@ -421,7 +418,7 @@ SendInput cd /d %serverDir62x%{Enter}title TC 62x{Enter}cls{enter}rmdir /Q /S .\
 Return
 
 ::rp6210::
-SendInput cd /d %serverDir6210%/tomcat-%tomcatVersion%/bin{Enter}title TC 62x{Enter}cls{enter}catalina jpda run < nul{enter}
+SendInput cd /d %serverDir6210%/tomcat-%tomcatVersion%/bin{Enter}title TC 6210{Enter}cls{enter}catalina jpda run < nul{enter}
 Return
 
 ::rpc6210::
@@ -457,12 +454,12 @@ MainMenu()
 	InputBox, option, Run Hotfix Scripts,
 	(
 1 - Check For Collisions
-2 - Existing Hotfixes for LPE
-3 - LPP's/Customers with Hotfix
+2 - Existing Hotfixes For LPE
+3 - LPP's/Customers With Hotfix
 4 - Customer's Installed Hotfixes 
 5 - Customer's Fixed Issues
-6 - Check if Hotfix is Blacklisted
-7 - LPE's Resolved by Hotfix
+6 - Check If Hotfix Is Blacklisted
+7 - LPE's Resolved By Hotfix
 
 Enter Number:
 	),,300,280,,370
@@ -473,37 +470,37 @@ Enter Number:
 	}
 	if (option = "1")
 	{
-		Run, sh.exe -c checkForCollisions
+		Run, sh.exe -c 1checkForCollisions.sh
 		Return
 	}
 	else if (option = "2")
 	{
-		Run, sh.exe -c existingHotfixesForLpe
+		Run, sh.exe -c 2existingHotfixesForLpe.sh
 		Return
 	}
 	else if (option = "3")
 	{
-		Run, sh.exe -c lppsAndCustomersWithHotfix
+		Run, sh.exe -c 3lppsAndCustomersWithHotfix.sh
 		Return
 	}
 	else if (option = "4")
 	{
-		Run, sh.exe -c customersInstalledHotfixes
+		Run, sh.exe -c 4customersInstalledHotfixes.sh
 		Return
 	}
 	else if (option = "5")
 	{
-		Run, sh.exe -c customersFixedIssues
+		Run, sh.exe -c 5customersFixedIssues.sh
 		Return
 	}
 	else if (option = "6")
 	{
-		Run, sh.exe -c checkIfHotfixBlacklisted
+		Run, sh.exe -c 6checkIfHotfixBlacklisted.sh
 		Return
 	}
 	else if (option = "7")
 	{
-		Run, sh.exe -c lpesResolvedByHotfix
+		Run, sh.exe -c 7lpesResolvedByHotfix.sh
 		Return
 	}
 }

@@ -1,17 +1,20 @@
 
+echo -ne "\e]0;Customer Fixed Issues\007"
+echo "Show The Customer's Fixed Issues"
+echo
+
 tmpLPElist="C:/Users/liferay/Desktop/Bryan/commands/tmp/lpelist.txt"
 tmpLPElistshort="C:/Users/liferay/Desktop/Bryan/commands/tmp/lpelistshort.txt"
 tmpLPElistlong="C:/Users/liferay/Desktop/Bryan/commands/tmp/lpelistlong.txt"
 tmpLPElistordered="C:/Users/liferay/Desktop/Bryan/commands/tmp/lpelistordered.txt"
 tmpLPElistcsv="C:/Users/liferay/Desktop/Bryan/commands/tmp/lpelistcsv.txt"
-repeat='y'
+		
+repeat='r'
 
-while [ $repeat == "y" ];
+while [ $repeat == "r" ];
 	do
-		echo "Show The Customer's Fixed Issues"
-		echo
+		read -p "Enter Version:" Version
 		read -p "Enter Customer Name:" Customer
-		read -p "Enter version (6012/6110/6120):" Version
 		cd 'D:/Liferay/Dev Tool/cache/'
 
 		grep -i $Customer- hotfix-list.txt |
@@ -19,7 +22,7 @@ while [ $repeat == "y" ];
 		sed 's: .*::' |
 
 		while read LINE 
-			do 
+			do
 				grep $LINE blacklist.txt
 				
 				if [ $? == 1 ]
@@ -34,8 +37,8 @@ while [ $repeat == "y" ];
 				echo $LINE
 			done |
 
-		sort -u |
-
+		sort | 
+		uniq |
 		grep $Version |
 
 		while read HF
@@ -71,7 +74,7 @@ while [ $repeat == "y" ];
 		rm $tmpLPElistordered
 
 		echo
-		read -p "Enter 'y' to run again, or 'n' to Exit:" repeat;
+		read -p "Press 'R' to run again, or 'Enter' to exit:" repeat;
 		echo
 
 	done
