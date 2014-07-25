@@ -314,6 +314,40 @@ function pushLPSThroughWorkflow() {
 	jira.sh -a progressIssue --assignee $REVIEWER --issue $2 --step "Code Review Request" --field "customfield_10421" --values $3
 }
 
+function pr() {
+	BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+	PWD=$(basename `pwd`)
+
+	case $PWD in
+		liferay-portal-ee-6.0.x)
+			echo -e "\n""\033[32mPull Request for 6.0.x\033[0m"
+			firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.0.x...jonathanmccann:$BRANCH
+			;;
+		liferay-portal-ee-6.1.x)
+			echo -e "\n""\033[32mPull Request for 6.1.x\033[0m"
+			firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.1.x...jonathanmccann:$BRANCH
+			;;
+		liferay-portal-ee-6.2.x)
+			echo -e "\n""\033[32mPull Request for 6.2.x\033[0m"
+			firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.2.x...jonathanmccann:$BRANCH
+			;;	
+		liferay-portal)
+			echo -e "\n""\033[32mPull Request for Master\033[0m"
+			firefox https://github.com/jonathanmccann/liferay-portal/pull/new/hhuijser:master...jonathanmccann:$BRANCH
+			;;
+		liferay-plugins-ee)
+			echo -e "\n""\033[32mPull Request for Plugins $1\033[0m"
+			firefox https://github.com/jonathanmccann/liferay-plugins-ee/pull/new/hhuijser:ee-$1...jonathanmccann:$BRANCH
+			;;
+		liferay-plugins)
+			echo -e "\n""\033[32mPull Request for Plugins Master\033[0m"
+			firefox https://github.com/jonathanmccann/liferay-plugins/pull/new/hhuijser:master...jonathanmccann:$BRANCH
+			;;
+		*)
+	esac
+}
+
 #
 # Custom git script. Abandonded in favor of using Hub.
 #
@@ -567,36 +601,3 @@ function pushLPSThroughWorkflow() {
 #	esac
 #}
 #
-#function pr() {
-#	BRANCH=$(git rev-parse --abbrev-ref HEAD)
-#
-#	PWD=$(basename `pwd`)
-#
-#	case $PWD in
-#		liferay-portal-ee-6.0.x)
-#			echo -e "\n""\033[32mPull Request for 6.0.x\033[0m"
-#			firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.0.x...jonathanmccann:$BRANCH
-#			;;
-#		liferay-portal-ee-6.1.x)
-#			echo -e "\n""\033[32mPull Request for 6.1.x\033[0m"
-#			firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.1.x...jonathanmccann:$BRANCH
-#			;;
-#		liferay-portal-ee-6.2.x)
-#			echo -e "\n""\033[32mPull Request for 6.2.x\033[0m"
-#			firefox https://github.com/jonathanmccann/liferay-portal-ee/pull/new/hhuijser:ee-6.2.x...jonathanmccann:$BRANCH
-#			;;	
-#		liferay-portal)
-#			echo -e "\n""\033[32mPull Request for Master\033[0m"
-#			firefox https://github.com/jonathanmccann/liferay-portal/pull/new/hhuijser:master...jonathanmccann:$BRANCH
-#			;;
-#		liferay-plugins-ee)
-#			echo -e "\n""\033[32mPull Request for Plugins $1\033[0m"
-#			firefox https://github.com/jonathanmccann/liferay-plugins-ee/pull/new/hhuijser:ee-$1...jonathanmccann:$BRANCH
-#			;;
-#		liferay-plugins)
-#			echo -e "\n""\033[32mPull Request for Plugins Master\033[0m"
-#			firefox https://github.com/jonathanmccann/liferay-plugins/pull/new/hhuijser:master...jonathanmccann:$BRANCH
-#			;;
-#		*)
-#	esac
-#}
