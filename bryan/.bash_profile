@@ -26,20 +26,24 @@ if [ $? == 0 ]
 
 		git status > $tmpStatusFile 2>nul
 
-		if [ "$(grep "Unmerged" $tmpStatusFile)" == "# Unmerged paths:" ]
+		if [ "$(grep "Unmerged" $tmpStatusFile)" != "" ]
 			then
 				echo "\e[1;34m$(__git_ps1)\e[0m"
 
-		elif [ "$(grep "Untracked" $tmpStatusFile)" == "# Untracked files:" ]
+		elif [ "$(grep "Untracked" $tmpStatusFile)" != "" ]
 			then echo "\e[1;31m$(__git_ps1)\e[0m"
 
-		elif [ "$(grep "staged" $tmpStatusFile)" == "# Changes not staged for commit:" ]
+		elif [ "$(grep "staged" $tmpStatusFile)" != "" ]
 			then
 				echo "\e[1;33m$(__git_ps1)\e[0m"
 
-		elif [ "$(grep "committed" $tmpStatusFile)" == "# Changes to be committed:" ]
+		elif [ "$(grep "committed" $tmpStatusFile)" != "" ]
 			then
 				echo "\e[32m$(__git_ps1)\e[0m"
+
+		elif [ "$(grep "behind" $tmpStatusFile)" != "" ]
+			then
+				echo "\e[35m$(__git_ps1)\e[0m"
 
 		else
 			echo "\e[1;37m$(__git_ps1)\e[0m"
@@ -68,6 +72,7 @@ alias cda="cd D:/Repos/alloy-ui; echo -ne '\e]0;Alloy\007'"
 alias cdc="cd C:/Users/liferay/Desktop/Bryan/commands; echo -ne '\e]0;Commands\007'"
 alias cdi="cd portal-impl"
 alias cdj="cd D:/Liferay/JiraC/src; echo -ne '\e]0;JiraC\007'"
+alias cdlts="cd D:/Repos/leveltwoscripts; echo -ne '\e]0;leveltwoscripts\007'"
 alias cdl="cd D:/Repos/liferay-plugins; echo -ne '\e]0;Plugins Master\007'"
 alias cdl2="cd D:/Repos/liferay-plugins-2; echo -ne '\e]0;Plugins 2\007'"
 alias cdl60="cd D:/Repos/liferay-plugins-60x; echo -ne '\e]0;Plugins 60x\007'"
@@ -90,7 +95,7 @@ alias cdp6110="cd D:/Repos/liferay-portal-6110; echo -ne '\e]0;Portal 6110\007'"
 alias cdp6120="cd D:/Repos/liferay-portal-6120; echo -ne '\e]0;Portal 6120\007'"
 alias cdp6130="cd D:/Repos/liferay-portal-6130; echo -ne '\e]0;Portal 6130\007'"
 alias cdp6210="cd D:/Repos/liferay-portal-6210; echo -ne '\e]0;Portal 6210\007'"
-alias cds="cd D:/Repos/leveltwoscripts; echo -ne '\e]0;leveltwoscripts\007'"
+alias cds="cd portal-service"
 alias cdw="cd portal-web"
 alias ed="explorer ."
 alias fpr="st fix-pack-requirements.txt"
@@ -110,8 +115,8 @@ alias gcfg="git config --global --edit &"
 alias gch="git cherry-pick"
 alias gcp="git cherry-pick --no-commit"
 alias gdf="git diff"
-alias gf="git fetch upstream; pushBranches.sh"
-alias gft="git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git --tags; git fetch upstream --tags"
+alias gf="git fetch upstream; pushBranches.sh; gft &"
+alias gft="git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git --tags --quiet && git fetch upstream --tags --quiet"
 alias gmt="git mergetool"
 alias gr="git reset"
 alias grbc="git rebase --continue"
@@ -181,15 +186,15 @@ function gkl() {
 }
 
 function gm() {
-	BRANCH=$(git rev-parse --abbrev-ref HEAD)
-	git merge upstream/$BRANCH
+	CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+	git merge upstream/$CURRENT_BRANCH
 }
 
 function gp() {
 	if [ $# -eq 0 ]
 		then 
-			BRANCH=$(git rev-parse --abbrev-ref HEAD)
-			git push origin $BRANCH -f
+			CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+			git push origin $CURRENT_BRANCH -f
 		else 
 			git push origin $1 -f
 	fi
@@ -198,20 +203,106 @@ function gp() {
 function gpp() {
 	if [ $# -eq 0 ]
 		then 
-			BRANCH=$(git rev-parse --abbrev-ref HEAD)
-			git push pr $BRANCH -f
+			CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+			git push pr $CURRENT_BRANCH -f
 		else 
 			git push pr $1 -f
 	fi
 }
 
+function gpr() {
+	echo
+	echo Select Repo:
+	repos="liferay-portal liferay-portal-ee liferay-plugins liferay-plugins-ee leveltwoscripts alloy-ui other"
+
+	select choice in $repos;
+	do
+		repo=$choice
+		break
+	done
+
+	if [ $repo == "other" ]
+		then
+			read -p "Enter Repo:" repo
+	fi
+
+	echo
+	echo Select Reviewer:
+	reviewers="jonathanmccann dustinryerson other"
+
+	select choice in $reviewers;
+	do
+		reviewer=$choice
+		break
+	done
+
+	if [ $reviewer == "other" ]
+		then
+			read -p "Enter Reviewer:" reviewer
+	fi
+
+	echo
+	echo Select Reviewer\'s Base Branch:
+	reviewersBaseBranches="master ee-7.0.x ee-6.2.x ee-6.1.x ee-6.0.x test-fix-pack-base-6210 other"
+
+	select choice in $reviewersBaseBranches;
+	do
+		reviewersBaseBranch=$choice
+		break
+	done
+
+	if [ $reviewersBaseBranch == "other" ]
+		then
+			read -p "Enter Base Branch:" reviewersBaseBranch
+	fi
+
+	echo
+	echo Select Head Branch:
+	headBranches="current other"
+
+	select choice in $headBranches;
+	do
+		headBranch=$choice
+		break
+	done
+
+	if [ $headBranch == "current" ]
+		then
+			headBranch=$(git rev-parse --abbrev-ref HEAD)
+	fi
+
+	if [ $headBranch == "other" ]
+		then
+			read -p "Enter Head Branch:" headBranch
+	fi
+
+	echo
+	read -p "Use \"$headBranch\" as message? (y/n):" useHeadBranch
+
+	if [ $useHeadBranch == "y" ]
+		then
+			hub pull-request -b $reviewer/$repo:$reviewersBaseBranch -h BryanEngler/$repo:$headBranch -m "$headBranch"
+		else
+			read -p "Enter Message:" message
+
+			if [ message == "" ]
+				then
+					hub pull-request -b $reviewer/$repo:$reviewersBaseBranch -h BryanEngler/$repo:$headBranch
+				else
+					hub pull-request -b $reviewer/$repo:$reviewersBaseBranch -h BryanEngler/$repo:$headBranch -m "$message"
+			fi
+	fi
+}
+
 function Hotfix-LPP-VERSION() {
 	cd D:/Repos/liferay-portal-$2
+	echo -ne "\e]0;Portal `echo $2`\007"
 	git checkout -b LPP-$1-$2 fix-pack-base-$2
 }
 
 function Hotfix-LPP-VERSION-SDH() {
 	cd D:/Repos/liferay-portal-$2
+	echo -ne "\e]0;Portal `echo $2`\007"
 	git checkout -b LPP-$1-$2-SDH fix-pack-base-$2
 }
 
