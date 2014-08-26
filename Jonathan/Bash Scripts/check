@@ -1,5 +1,5 @@
 #!/bin/sh
 #Useage: check $VERSION $HOTFIXNUMBER $CLIENT
 
-cd "/e/Fix Pack Development Tool"
+cd ~/fix-pack-development-tool
 ./fp-dev-tool.sh $1 check hotfix-$2 $3

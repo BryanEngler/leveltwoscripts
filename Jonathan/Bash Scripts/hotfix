@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 #Useage: hotfix $VERSION_NUMBER $CLIENT_NAME
 
-cd "/e/Fix Pack Development Tool"
+cd ~/fix-pack-development-tool
 ./fp-dev-tool.sh $1 $2

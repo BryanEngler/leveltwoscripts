@@ -1,33 +1,33 @@
-cd E:/Repositories/liferay-plugins/hooks/portal-compat-hook
+cd ~/repositories/liferay-plugins/hooks/portal-compat-hook
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/hooks/so-activities-hook
+cd ~/repositories/liferay-plugins/hooks/so-activities-hook
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/hooks/deploy-listener-hook
+cd ~/repositories/liferay-plugins/hooks/deploy-listener-hook
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/hooks/so-hook
-if [ $? == 0 ]; then ant deploy; fi;
-
-
-cd E:/Repositories/liferay-plugins/themes/so-theme
+cd ~/repositories/liferay-plugins/hooks/so-hook
 if [ $? == 0 ]; then ant deploy; fi;
 
-cd E:/Repositories/liferay-plugins/portlets/contacts-portlet
+
+cd ~/repositories/liferay-plugins/themes/so-theme
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/events-display-portlet
+
+cd ~/repositories/liferay-plugins/portlets/contacts-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/marketplace-portlet
+cd ~/repositories/liferay-plugins/portlets/events-display-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/microblogs-portlet
+cd ~/repositories/liferay-plugins/portlets/marketplace-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/private-messaging-portlet
+cd ~/repositories/liferay-plugins/portlets/microblogs-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/so-announcements-portlet
+cd ~/repositories/liferay-plugins/portlets/private-messaging-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/so-configurations-portlet
+cd ~/repositories/liferay-plugins/portlets/so-announcements-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/so-portlet
+cd ~/repositories/liferay-plugins/portlets/so-configurations-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/tasks-portlet
+cd ~/repositories/liferay-plugins/portlets/so-portlet
 if [ $? == 0 ]; then ant deploy; fi;
-cd E:/Repositories/liferay-plugins/portlets/wysiwyg-portlet
+cd ~/repositories/liferay-plugins/portlets/tasks-portlet
+if [ $? == 0 ]; then ant deploy; fi;
+cd ~/repositories/liferay-plugins/portlets/wysiwyg-portlet
 if [ $? == 0 ]; then ant deploy; fi;

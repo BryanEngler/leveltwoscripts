@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #Usage - run $VERSION_NUMBER
 
 if [[ $1 == "-j" ]] || [[ $2 == "-j" ]]; then
@@ -37,6 +37,6 @@ esac
 
 PWD=$(basename `pwd`)
 
-"C:/Program Files (x86)/Git/bin/clean"
+clean
 
-"C:/Program Files (x86)/Git/bin/run" $PWD $JREBEL
+run $PWD $JREBEL

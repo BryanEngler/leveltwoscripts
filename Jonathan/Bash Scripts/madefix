@@ -1,7 +1,7 @@
 #!/bin/sh
 #Syntax: madefix $Version $LPE
 
-cd "/e/Fix Pack Development Tool"
+cd ~/fix-pack-development-tool
 echo -e "\n""Updating the hot fix repository:""\n"
 ./fp-dev-tool.sh $1
 cd cache/$1

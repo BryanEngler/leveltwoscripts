@@ -1,34 +1,34 @@
-cd E:/Repositories/liferay-plugins-ee/hooks/portal-compat-hook
+cd ~/repositories/liferay-plugins-ee/hooks/portal-compat-hook
 if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/hooks/so-activities-hook
+cd ~/repositories/liferay-plugins-ee/hooks/so-activities-hook
 if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/hooks/deploy-listener-hook
+cd ~/repositories/liferay-plugins-ee/hooks/deploy-listener-hook
 if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/hooks/so-hook
-if [ $? == 0 ]; then ant all; fi;
-
-cd E:/Repositories/liferay-plugins-ee/portlets/contacts-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/calendar-portlet/
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/events-display-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/marketplace-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/microblogs-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/private-messaging-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/so-announcements-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/so-configurations-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/so-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/tasks-portlet
-if [ $? == 0 ]; then ant all; fi;
-cd E:/Repositories/liferay-plugins-ee/portlets/wysiwyg-portlet
+cd ~/repositories/liferay-plugins-ee/hooks/so-hook
 if [ $? == 0 ]; then ant all; fi;
 
-cd E:/Repositories/liferay-plugins-ee/themes/so-theme
+cd ~/repositories/liferay-plugins-ee/portlets/contacts-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/calendar-portlet/
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/events-display-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/marketplace-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/microblogs-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/private-messaging-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/so-announcements-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/so-configurations-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/so-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/tasks-portlet
+if [ $? == 0 ]; then ant all; fi;
+cd ~/repositories/liferay-plugins-ee/portlets/wysiwyg-portlet
+if [ $? == 0 ]; then ant all; fi;
+
+cd ~/repositories/liferay-plugins-ee/themes/so-theme
 if [ $? == 0 ]; then ant all; fi;

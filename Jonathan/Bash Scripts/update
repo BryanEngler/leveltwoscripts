@@ -1,6 +1,6 @@
 #Run as source
 
-cd E:/Repositories/liferay-portal
+cd ~/repositories/liferay-portal
 echo -e "\n""\n""\033[32mUpdating liferay-portal...\033[0m"
 echo -e "\n""Checking out master""\n"
 git checkout master --force
