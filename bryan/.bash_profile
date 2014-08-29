@@ -115,8 +115,11 @@ alias gcfg="git config --global --edit &"
 alias gch="git cherry-pick"
 alias gcp="git cherry-pick --no-commit"
 alias gdf="git diff"
-alias gf="git fetch upstream; pushBranches.sh; gft &"
-alias gft="git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git --tags --quiet && git fetch upstream --tags --quiet"
+alias gfa="git fetch upstream; pushBranches.sh; gftq &"
+alias gfu="git fetch upstream"
+alias gft="git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git --tags && git fetch upstream --tags"
+alias gftq="git fetch git@github.com:zsoltbalogh/liferay-portal-ee.git --tags --quiet && git fetch upstream --tags --quiet"
+alias ggcf="git gc"
 alias gmt="git mergetool"
 alias gr="git reset"
 alias grbc="git rebase --continue"
@@ -181,6 +184,123 @@ function acp() {
 	fi
 }
 
+function bpr() {
+	read -p "Enter Ticket:" ticket
+
+	echo Select Backport Version:
+	version="6.2_EE_(fix_pack) 6.1_EE_GA3_(fix_pack) 6.0.x_(branch_commit_only) 6.2_EE_(testing_branch_only) 6.1_EE_GA3_(testing_branch_only) Plugin:_6.2_EE Plugin:_6.1_EE_GA2,_GA3 Plugin:_6.1_EE_GA1 Plugin:_6.0_EE_SP2 Plugin:_6.2.x_(development) Plugin:_6.1.x_(development) Plugin:_6.0.x_(development)"
+
+	select choice in $version;
+	do
+		version=$choice
+		break
+	done
+
+	if [ $version == "6.2_EE_(fix_pack)" ]
+		then
+			version="16327"
+			prefix="62x"
+	fi
+
+	if [ $version == "6.1_EE_GA3_(fix_pack)" ]
+		then
+			version="16325"
+			prefix="61x"
+	fi
+
+	if [ $version == "6.0.x_(branch_commit_only)" ]
+		then
+			version="16323"
+			prefix="60x"
+	fi
+
+	if [ $version == "Plugin:_6.2_EE" ]
+		then
+			version="17010"
+			prefix="6210"
+	fi
+
+	if [ $version == "Plugin:_6.1_EE_GA2,_GA3" ]
+		then
+			version="17011"
+			prefix="6120"
+	fi
+
+	if [ $version == "Plugin:_6.1_EE_GA1" ]
+		then
+			version="17012"
+			prefix="6110"
+	fi
+
+	if [ $version == "Plugin:_6.0_EE_SP2" ]
+		then
+			version="17013"
+			prefix="6012"
+	fi
+
+	if [ $version == "Plugin:_6.2.x_(development)" ]
+		then
+			version="17222"
+			prefix="62x"
+	fi
+
+	if [ $version == "Plugin:_6.1.x_(development)" ]
+		then
+			version="17223"
+			prefix="61x"
+	fi
+
+	if [ $version == "Plugin:_6.0.x_(development)" ]
+		then
+			version="17224"
+			prefix="60x"
+	fi
+
+	echo
+	echo Creating Issue...
+
+	jira -a createIssue --project BPR --type "Backport Request" --summary "$prefix $ticket" --priority Minor --custom customfield_14424:$version,customfield_11531:Support
+
+	read -p "Enter BPR Number:" bpr
+
+	jira -a linkIssue --issue $ticket --toIssue BPR-$bpr --link Relationship
+}
+
+function gfb() {
+	echo
+	read -p "Enter User:" user
+
+	echo
+	echo Select Repo:
+	repos="liferay-portal liferay-portal-ee liferay-plugins liferay-plugins-ee leveltwoscripts alloy-ui other"
+
+	select choice in $repos;
+	do
+		repo=$choice
+		break
+	done
+
+	if [ $repo == "other" ]
+		then
+			read -p "Enter Repo:" repo
+	fi
+
+	echo
+	read -p "Enter Their Branch:" theirBranch
+	
+	echo
+	read -p "Use a different name for your branch? (y/n):" diffBranch
+
+	if [ $diffBranch == 'y' ]
+		then
+			echo
+			read -p "Enter Your Branch:" myBranch
+			git fetch git@github.com:$user/$repo.git $theirBranch:$myBranch
+		else
+			git fetch git@github.com:$user/$repo.git $theirBranch:$theirBranch
+	fi
+}
+
 function gkl() {
 	git ls-files | grep -i $1 | xargs gitk $2 &
 }
@@ -228,7 +348,7 @@ function gpr() {
 
 	echo
 	echo Select Reviewer:
-	reviewers="jonathanmccann dustinryerson other"
+	reviewers="jonathanmccann dustinryerson iamgeorgechi other"
 
 	select choice in $reviewers;
 	do
@@ -258,7 +378,7 @@ function gpr() {
 
 	echo
 	echo Select Head Branch:
-	headBranches="current other"
+	headBranches="current-($(git rev-parse --abbrev-ref HEAD)) other"
 
 	select choice in $headBranches;
 	do
@@ -266,7 +386,7 @@ function gpr() {
 		break
 	done
 
-	if [ $headBranch == "current" ]
+	if [ $headBranch == "current-($(git rev-parse --abbrev-ref HEAD))" ]
 		then
 			headBranch=$(git rev-parse --abbrev-ref HEAD)
 	fi
@@ -294,16 +414,30 @@ function gpr() {
 	fi
 }
 
-function Hotfix-LPP-VERSION() {
-	cd D:/Repos/liferay-portal-$2
-	echo -ne "\e]0;Portal `echo $2`\007"
-	git checkout -b LPP-$1-$2 fix-pack-base-$2
+function gti() {
+	read -p "Enter Title:" title
+	echo -ne "\e]0;$title\007"
 }
 
-function Hotfix-LPP-VERSION-SDH() {
-	cd D:/Repos/liferay-portal-$2
-	echo -ne "\e]0;Portal `echo $2`\007"
-	git checkout -b LPP-$1-$2-SDH fix-pack-base-$2
+function gwc() {
+	if [ $# -eq 1 ]
+		then
+			git whatchanged --pretty=format:"%C(cyan bold) %an %C(yellow bold) %s" -$1
+		else
+			git whatchanged --pretty=format:"%C(cyan bold) %an %C(yellow bold) %s"
+	fi
+}
+
+function Hotfix-VERSION-LPP() {
+	cd D:/Repos/liferay-portal-$1
+	echo -ne "\e]0;`echo LPP-$2-$1`\007"
+	git checkout -b LPP-$2-$1 fix-pack-base-$1
+}
+
+function Hotfix-VERSION-LPP-SDH() {
+	cd D:/Repos/liferay-portal-$1
+	echo -ne "\e]0;`echo LPP-$2-$1`\007"
+	git checkout -b LPP-$2-$1-SDH fix-pack-base-$1
 }
 
 function k() {

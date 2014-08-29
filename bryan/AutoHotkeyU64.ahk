@@ -258,12 +258,6 @@ Return
 ::gdt::git difftool  &{left 3}
 Return
 
-:o:gfb::git fetch git@github.com:/liferay-portal.git :{left 21}
-Return
-
-::gfu::git fetch upstream
-Return
-
 :o:ghu::git@github.com:BryanEngler/liferay-portal-ee.git
 Return
 
@@ -273,16 +267,10 @@ Return
 :o:gkg::gitk --grep=LPS- &{left 2}
 Return
 
-:o:gkga::gitk --grep=AUI- &{left 2}
+::gl::git log --pretty=format:"%h  %C(cyan bold)%an    %CresetComitted: %cr    %C(yellow bold) %s"
 Return
 
-:o:gkgs::gitk --grep=SOS- &{left 2}
-Return
-
-::gl::git log --pretty=format:"%h  %C(cyan bold)%an    %CresetComitted: %cr    %C(yellow bold) %s" -5
-Return
-
-:o:glg::git log --pretty=format:"%h %s" --grep=LPS-
+:o:glg::git log --pretty=format:"%C(blue bold)%h %Creset%s" --grep=LPS-
 Return
 
 :o:gpd::git push origin : 
@@ -309,19 +297,10 @@ Return
 :o:grsh::git reset --soft head{^}
 Return
 
-:o:gti::echo -ne "\e]0;\007"{Left 5}
+::hf::Hotfix-VERSION-LPP  
 Return
 
-::gwc::git whatchanged --pretty=format:"%C(cyan bold) %an %C(yellow bold) %s" -5
-Return
-
-::gsol::c3332dbd-47fd-4727-b010-e3a22bc288b4
-Return
-
-::hf::Hotfix-LPP-VERSION  
-Return
-
-::hfs::Hotfix-LPP-VERSION-SDH  
+::hfs::Hotfix-VERSION-LPP-SDH  
 Return
 
 :o:ltd::cd /d D:\Liferay\JiraC{Enter}ant lpe-tool -Ddate=
