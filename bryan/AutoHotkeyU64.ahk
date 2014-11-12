@@ -14,6 +14,7 @@
 ;  ^+d        print current date  --  control + shift + d
 ;  ^v         paste in command prompt  --  control + v  --  when console window is active
 ;  F4         exit command prompt  --  F4  --  when console window is active
+;  ^+F4       turn on screen saver
 ;  XButton1   mouse "back" button  --  mouse back button  --  within 7zip
 ;  XButton1   mouse "back" button  --  mouse back button  --  within vm
 ;  XButton2   mouse "forward" button  --  mouse forward button  --  within 7zip
@@ -24,29 +25,49 @@
 
 emailAddress := "liferaytest234@gmail.com"
 emailPassword := "testtest234"
-serverDir := "D:/Servers/liferay-portal"
-serverDir8 := "D:/Servers/liferay-portal-2"
-serverDir60x := "D:/Servers/liferay-portal-60x"
-serverDir61x := "D:/Servers/liferay-portal-61x"
-serverDir62x := "D:/Servers/liferay-portal-62x"
-serverDir70x := "D:/Servers/liferay-portal-70x"
-serverDir6012 := "D:/Servers/liferay-portal-6012"
-serverDir6110 := "D:/Servers/liferay-portal-6110"
-serverDir6120 := "D:/Servers/liferay-portal-6120"
-serverDir6130 := "D:/Servers/liferay-portal-6130"
-serverDir6210 := "D:/Servers/liferay-portal-6210"
-tomcatVersion := "7.0.27"
+
+serverDir := "D:\Servers\liferay-portal"
+serverDir2 := "D:\Servers\liferay-portal-2"
+serverDir70x := "D:\Servers\liferay-portal-70x"
+serverDir62x := "D:\Servers\liferay-portal-62x"
+serverDir6210 := "D:\Servers\liferay-portal-6210"
+serverDir61x := "D:\Servers\liferay-portal-61x"
+serverDir6130 := "D:\Servers\liferay-portal-6130"
+serverDir6120 := "D:\Servers\liferay-portal-6120"
+serverDir6110 := "D:\Servers\liferay-portal-6110"
+serverDir60x := "D:\Servers\liferay-portal-60x"
+serverDir6012 := "D:\Servers\liferay-portal-6012"
+serverDir6011 := "D:\Servers\liferay-portal-6011"
+serverDir6010 := "D:\Servers\liferay-portal-6010"
+
+tomcatVersion := "7.0.42"
+tomcatVersion2 := "7.0.42"
+tomcatVersion70x := "7.0.42"
+tomcatVersion62x := "7.0.42"
+tomcatVersion6210 := "7.0.42"
+tomcatVersion61x := "7.0.40"
+tomcatVersion6130 := "7.0.40"
+tomcatVersion6120 := "7.0.27"
+tomcatVersion6110 := "7.0.25"
+tomcatVersion60x := "6.0.33"
+tomcatVersion6012 := "6.0.32"
+tomcatVersion6011 := "6.0.29"
+tomcatVersion6010 := "6.0.29"
+
 mysqlDBname := "portal"
 mysqlDBname2 := "portal2"
-mysqlDBname60x := "portal60x"
-mysqlDBname61x := "portal61x"
-mysqlDBname62x := "portal62x"
 mysqlDBname70x := "portal70x"
-mysqlDBname6012 := "portal6012"
-mysqlDBname6110 := "portal6110"
-mysqlDBname6120 := "portal6120"
-mysqlDBname6130 := "portal6130"
+mysqlDBname62x := "portal62x"
 mysqlDBname6210 := "portal6210"
+mysqlDBname61x := "portal61x"
+mysqlDBname6130 := "portal6130"
+mysqlDBname6120 := "portal6120"
+mysqlDBname6110 := "portal6110"
+mysqlDBname60x := "portal60x"
+mysqlDBname6012 := "portal6012"
+mysqlDBname6011 := "portal6011"
+mysqlDBname6010 := "portal6010"
+
 mysqlPassword := "password"
 ojdbc := "D:\Liferay\misc\ojdbc14.jar"
 defaultPromptTitle := "Admin: C:\Windows\system32\cmd.exe"
@@ -180,6 +201,13 @@ Return
 
 ;******************************************************
 
+; Turn on screen saver
+
+^F4::Run C:\Windows\System32\scrnsave.scr /s
+Return
+
+;******************************************************
+
 ; mouse "back" button  --  mouse back button  --  within 7zip
 
 #IfWinActive ahk_class FM
@@ -234,16 +262,13 @@ Return
 ::gc::git checkout
 Return
 
-:o:gcfp::git checkout fix-pack-base-
-Return
-
-:o:gchf::git checkout fix-pack-hotfix-
-Return
-
 ::gcb::git checkout -b
 Return
 
 :o:gce::git checkout ee-
+Return
+
+:o:gcf::git checkout fix-pack-base-
 Return
 
 :o:gcm::git commit -m ""{Left}
@@ -261,18 +286,6 @@ Return
 :o:ghu::git@github.com:BryanEngler/liferay-portal-ee.git
 Return
 
-::gk::gitk  &{left 3}
-Return
-
-:o:gkg::gitk --grep=LPS- &{left 2}
-Return
-
-::gl::git log --pretty=format:"%h  %C(cyan bold)%an    %CresetComitted: %cr    %C(yellow bold) %s"
-Return
-
-:o:glg::git log --pretty=format:"%C(blue bold)%h %Creset%s" --grep=LPS-
-Return
-
 :o:gpd::git push origin : 
 Return
 
@@ -282,7 +295,7 @@ Return
 ::grb::git rebase
 Return
 
-:o:grbi::git rebase -i HEAD{^}
+:o:grbi::git rebase -i head{^}
 Return
 
 :o:grh::git reset --hard{space} 
@@ -298,9 +311,6 @@ Return
 Return
 
 ::hf::Hotfix-VERSION-LPP  
-Return
-
-::hfs::Hotfix-VERSION-LPP-SDH  
 Return
 
 :o:ltd::cd /d D:\Liferay\JiraC{Enter}ant lpe-tool -Ddate=
@@ -325,91 +335,203 @@ SendInput cd /d %serverDir%{Enter}title TC Master{Enter}cls{enter}rmdir /Q /S .\
 Return
 
 ::rpj::
-SendInput cd /d %serverDir%/tomcat-%tomcatVersion%/bin{Enter}title TC Master{Enter}cls{enter}copy /y D:\Liferay\rebel.xml D:\Servers\liferay-portal\tomcat-7.0.27\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+SendInput cd /d %serverDir%\tomcat-%tomcatVersion%\bin{Enter}title TC Master{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir%\tomcat-%tomcatVersion%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
 Return
 
 ::rpcj::
-SendInput cd /d %serverDir%{Enter}title TC Master{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml D:\Servers\liferay-portal\tomcat-7.0.27\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname%; create database %mysqlDBname%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+SendInput cd /d %serverDir%{Enter}title TC Master{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir%\tomcat-%tomcatVersion%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname%; create database %mysqlDBname%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
 Return
 
 ::rp2::
-SendInput cd /d %serverDir8%/tomcat-%tomcatVersion%/bin{Enter}title TC 8001{Enter}cls{enter}catalina jpda run < nul{enter}
+SendInput cd /d %serverDir2%/tomcat-%tomcatVersion2%/bin{Enter}title TC M 8002{Enter}cls{enter}catalina jpda run < nul{enter}
 Return
 
 ::rpc2::
-SendInput cd /d %serverDir8%{Enter}title TC 8001{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname2%; create database %mysqlDBname2%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+SendInput cd /d %serverDir2%{Enter}title TC M 8002{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion2%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname2%; create database %mysqlDBname2%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
 Return
 
-::rp60::
-SendInput cd /d %serverDir60x%/tomcat-%tomcatVersion%/bin{Enter}title TC 60x{Enter}cls{enter}catalina jpda run < nul{enter}
+::rpj2::
+SendInput cd /d %serverDir2%\tomcat-%tomcatVersion2%\bin{Enter}title TC M 8002{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir2%\tomcat-%tomcatVersion2%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
 Return
 
-::rpc60::
-SendInput cd /d %serverDir60x%{Enter}title TC 60x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname60x%; create database %mysqlDBname60x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
-Return
-
-::rp6012::
-SendInput cd /d %serverDir6012%/tomcat-%tomcatVersion%/bin{Enter}title TC 6012{Enter}cls{enter}catalina jpda run < nul{enter}
-Return
-
-::rpc6012::
-SendInput cd /d %serverDir6012%{Enter}title TC 6012{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6012%; create database %mysqlDBname6012%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
-Return
-
-::rp61::
-SendInput cd /d %serverDir61x%/tomcat-%tomcatVersion%/bin{Enter}title TC 61x{Enter}cls{enter}catalina jpda run < nul{enter}
-Return
-
-::rpc61::
-SendInput cd /d %serverDir61x%{Enter}title TC 61x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname61x%; create database %mysqlDBname61x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
-Return
-
-::rp6110::
-SendInput cd /d %serverDir6110%/tomcat-%tomcatVersion%/bin{Enter}title TC 6110{Enter}cls{enter}catalina jpda run < nul{enter}
-Return
-
-::rpc6110::
-SendInput cd /d %serverDir6110%{Enter}title TC 6110{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6110%; create database %mysqlDBname6110%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
-Return
-
-::rp6120::
-SendInput cd /d %serverDir6120%/tomcat-%tomcatVersion%/bin{Enter}title TC 6120{Enter}cls{enter}catalina jpda run < nul{enter}
-Return
-
-::rpc6120::
-SendInput cd /d %serverDir6120%{Enter}title TC 6120{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6120%; create database %mysqlDBname6120%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
-Return
-
-::rp6130::
-SendInput cd /d %serverDir6130%/tomcat-%tomcatVersion%/bin{Enter}title TC 6130{Enter}cls{enter}catalina jpda run < nul{enter}
-Return
-
-::rpc6130::
-SendInput cd /d %serverDir6130%{Enter}title TC 6130{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6130%; create database %mysqlDBname6130%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
-Return
-
-::rp62::
-SendInput cd /d %serverDir62x%/tomcat-%tomcatVersion%/bin{Enter}title TC 62x{Enter}cls{enter}catalina jpda run < nul{enter}
-Return
-
-::rpc62::
-SendInput cd /d %serverDir62x%{Enter}title TC 62x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname62x%; create database %mysqlDBname62x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
-Return
-
-::rp6210::
-SendInput cd /d %serverDir6210%/tomcat-%tomcatVersion%/bin{Enter}title TC 6210{Enter}cls{enter}catalina jpda run < nul{enter}
-Return
-
-::rpc6210::
-SendInput cd /d %serverDir6210%{Enter}title TC 6210{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6210%; create database %mysqlDBname6210%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+::rpcj2::
+SendInput cd /d %serverDir2%{Enter}title TC M 8002{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion2%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir2%\tomcat-%tomcatVersion2%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname2%; create database %mysqlDBname2%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
 Return
 
 ::rp70::
-SendInput cd /d %serverDir70x%/tomcat-%tomcatVersion%/bin{Enter}title TC 70x{Enter}cls{enter}catalina jpda run < nul{enter}
+SendInput cd /d %serverDir70x%/tomcat-%tomcatVersion70x%/bin{Enter}title TC 70x{Enter}cls{enter}catalina jpda run < nul{enter}
 Return
 
 ::rpc70::
-SendInput cd /d %serverDir70x%{Enter}title TC 70x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname70x%; create database %mysqlDBname70x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+SendInput cd /d %serverDir70x%{Enter}title TC 70x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion70x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname70x%; create database %mysqlDBname70x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj70::
+SendInput cd /d %serverDir70x%\tomcat-%tomcatVersion70x%\bin{Enter}title TC 70x{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir70x%\tomcat-%tomcatVersion70x%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj70::
+SendInput cd /d %serverDir70x%{Enter}title TC 70x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion70x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir70x%\tomcat-%tomcatVersion70x%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname70x%; create database %mysqlDBname70x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp62::
+SendInput cd /d %serverDir62x%/tomcat-%tomcatVersion62x%/bin{Enter}title TC 62x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc62::
+SendInput cd /d %serverDir62x%{Enter}title TC 62x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion62x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname62x%; create database %mysqlDBname62x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj62::
+SendInput cd /d %serverDir62x%\tomcat-%tomcatVersion62x%\bin{Enter}title TC 62x{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir62x%\tomcat-%tomcatVersion62x%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj62::
+SendInput cd /d %serverDir62x%{Enter}title TC 62x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion62x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir62x%\tomcat-%tomcatVersion62x%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname62x%; create database %mysqlDBname62x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp6210::
+SendInput cd /d %serverDir6210%/tomcat-%tomcatVersion6210%/bin{Enter}title TC 6210{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6210::
+SendInput cd /d %serverDir6210%{Enter}title TC 6210{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6210%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6210%; create database %mysqlDBname6210%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj6210::
+SendInput cd /d %serverDir6210%\tomcat-%tomcatVersion6210%\bin{Enter}title TC 6210{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir6210%\tomcat-%tomcatVersion6210%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj6210::
+SendInput cd /d %serverDir6210%{Enter}title TC 6210{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6210%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir6210%\tomcat-%tomcatVersion6210%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname6210%; create database %mysqlDBname6210%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp61::
+SendInput cd /d %serverDir61x%/tomcat-%tomcatVersion61x%/bin{Enter}title TC 61x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc61::
+SendInput cd /d %serverDir61x%{Enter}title TC 61x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion61x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname61x%; create database %mysqlDBname61x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj61::
+SendInput cd /d %serverDir61x%\tomcat-%tomcatVersion61x%\bin{Enter}title TC 61x{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir61x%\tomcat-%tomcatVersion61x%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj61::
+SendInput cd /d %serverDir61x%{Enter}title TC 61x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion61x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir61x%\tomcat-%tomcatVersion61x%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname61x%; create database %mysqlDBname61x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp6110::
+SendInput cd /d %serverDir6110%/tomcat-%tomcatVersion6110%/bin{Enter}title TC 6110{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6110::
+SendInput cd /d %serverDir6110%{Enter}title TC 6110{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6110%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6110%; create database %mysqlDBname6110%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj6110::
+SendInput cd /d %serverDir6110%\tomcat-%tomcatVersion6110%\bin{Enter}title TC 6110{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir6110%\tomcat-%tomcatVersion6110%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj6110::
+SendInput cd /d %serverDir6110%{Enter}title TC 6110{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6110%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir6110%\tomcat-%tomcatVersion6110%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname6110%; create database %mysqlDBname6110%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp6120::
+SendInput cd /d %serverDir6120%/tomcat-%tomcatVersion6120%/bin{Enter}title TC 6120{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6120::
+SendInput cd /d %serverDir6120%{Enter}title TC 6120{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6120%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6120%; create database %mysqlDBname6120%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj6120::
+SendInput cd /d %serverDir6120%\tomcat-%tomcatVersion6120%\bin{Enter}title TC 6120{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir6120%\tomcat-%tomcatVersion6120%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj6120::
+SendInput cd /d %serverDir6120%{Enter}title TC 6120{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6120%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir6120%\tomcat-%tomcatVersion6120%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname6120%; create database %mysqlDBname6120%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp6130::
+SendInput cd /d %serverDir6130%/tomcat-%tomcatVersion6130%/bin{Enter}title TC 6130{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6130::
+SendInput cd /d %serverDir6130%{Enter}title TC 6130{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6130%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6130%; create database %mysqlDBname6130%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj6130::
+SendInput cd /d %serverDir6130%\tomcat-%tomcatVersion6130%\bin{Enter}title TC 6130{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir6130%\tomcat-%tomcatVersion6130%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj6130::
+SendInput cd /d %serverDir6130%{Enter}title TC 6130{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6130%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic61% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir6130%\tomcat-%tomcatVersion6130%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname6130%; create database %mysqlDBname6130%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp60::
+SendInput cd /d %serverDir60x%/tomcat-%tomcatVersion60x%/bin{Enter}title TC 60x{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc60::
+SendInput cd /d %serverDir60x%{Enter}title TC 60x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion60x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname60x%; create database %mysqlDBname60x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj60::
+SendInput cd /d %serverDir60x%\tomcat-%tomcatVersion60x%\bin{Enter}title TC 60x{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir60x%\tomcat-%tomcatVersion60x%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj60::
+SendInput cd /d %serverDir60x%{Enter}title TC 60x{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion60x%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir60x%\tomcat-%tomcatVersion60x%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname60x%; create database %mysqlDBname60x%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp6010::
+SendInput cd /d %serverDir6010%/tomcat-%tomcatVersion6010%/bin{Enter}title TC 6010{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6010::
+SendInput cd /d %serverDir6010%{Enter}title TC 6010{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6010%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6010%; create database %mysqlDBname6010%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj6010::
+SendInput cd /d %serverDir6010%\tomcat-%tomcatVersion6010%\bin{Enter}title TC 6010{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir6010%\tomcat-%tomcatVersion6010%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj6010::
+SendInput cd /d %serverDir6010%{Enter}title TC 6010{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6010%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir6010%\tomcat-%tomcatVersion6010%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname6010%; create database %mysqlDBname6010%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp6011::
+SendInput cd /d %serverDir6011%/tomcat-%tomcatVersion6011%/bin{Enter}title TC 6011{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6011::
+SendInput cd /d %serverDir6011%{Enter}title TC 6011{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6011%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6011%; create database %mysqlDBname6011%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj6011::
+SendInput cd /d %serverDir6011%\tomcat-%tomcatVersion6011%\bin{Enter}title TC 6011{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir6011%\tomcat-%tomcatVersion6011%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj6011::
+SendInput cd /d %serverDir6011%{Enter}title TC 6011{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6011%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir6011%\tomcat-%tomcatVersion6011%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname6011%; create database %mysqlDBname6011%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
+Return
+
+::rp6012::
+SendInput cd /d %serverDir6012%/tomcat-%tomcatVersion6012%/bin{Enter}title TC 6012{Enter}cls{enter}catalina jpda run < nul{enter}
+Return
+
+::rpc6012::
+SendInput cd /d %serverDir6012%{Enter}title TC 6012{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6012%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}echo drop database %mysqlDBname6012%; create database %mysqlDBname6012%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run < nul{enter}
+Return
+
+::rpj6012::
+SendInput cd /d %serverDir6012%\tomcat-%tomcatVersion6012%\bin{Enter}title TC 6012{Enter}cls{enter}copy /y D:\Liferay\rebel.xml %serverDir6012%\tomcat-%tomcatVersion6012%\webapps\ROOT\WEB-INF\classes{Enter}catalina jpda run jreb < nul{enter}
+Return
+
+::rpcj6012::
+SendInput cd /d %serverDir6012%{Enter}title TC 6012{Enter}cls{enter}rmdir /Q /S .\data{Enter}cd tomcat-%tomcatVersion6012%{Enter}rmdir /Q /S .\temp{Enter}rmdir /Q /S .\work{Enter}copy /y %lic60% ..\deploy{Enter}copy /y %ojdbc% .\lib\ext{Enter}copy /y D:\Liferay\rebel.xml %serverDir6012%\tomcat-%tomcatVersion6012%\webapps\ROOT\WEB-INF\classes{Enter}echo drop database %mysqlDBname6012%; create database %mysqlDBname6012%; | mysql -u root -p%mysqlPassword%{Enter}cd bin{Enter}catalina jpda run jreb< nul{enter}
 Return
 
 ::sdb::show databases;
