@@ -1,4 +1,4 @@
-GITHUB_USERNAMES="brandizzi, dustinryerson, ealonso, hhuijser, holatuwol, johnnyhowey, jonmak08, jorgeferrer, juliocamarero, marcellustavares, matethurzo, mhan810, mikakoivisto, rotty3000, sergiogonzalez, shinnlok, shuyangzhou"
+GITHUB_USERNAMES="brandizzi, dustinryerson, epgarcia, hhuijser, holatuwol, johnnyhowey, jonmak08, jorgeferrer, juliocamarero, marcellustavares, matethurzo, mhan810, rotty3000, sergiogonzalez, shinnlok, shuyangzhou"
 
 OAUTHTOKEN=""
 
@@ -12,6 +12,9 @@ export PATH=$PATH:$HOME/scripts
 
 # Reload bashrc
 alias bp='source ~/.bashrc'
+
+# Edit .bash_aliases
+alias ba='sub ~/.bash_aliases'
 
 # Apt-get
 alias sag='sudo apt-get'
@@ -29,6 +32,7 @@ alias git=hub
 # Ant commands
 alias aa='ant all'
 alias ad='ant deploy'
+alias adf='ant deploy-fast'
 alias fs='ant format-source'
 alias awar='ant -f build-dist.xml zip-portal-war'
 alias adep='ant -f build-dist.xml zip-portal-dependencies'
@@ -41,6 +45,7 @@ alias gbiv='git bisect visualize'
 alias gbr='git browse'
 alias gc='git checkout'
 alias gcom='git commit'
+alias gcomaa='git commit -a --amend'
 alias gcf='git checkout --force'
 alias gcp='git cherry-pick'
 alias gd='git diff'
@@ -49,6 +54,8 @@ alias gf='git fetch upstream'
 alias gpum='git pull upstream master'
 alias gpom='git push origin master'
 alias gr='git rebase'
+alias grc='git rebase --continue'
+alias gri='git rebase -i'
 alias grm='git rebase master'
 alias gs='git status'
 alias graph="git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%cr)%Creset %s%C(yellow)%d%Creset' --abbrev-commit --date=relative -10"
@@ -69,6 +76,7 @@ alias r70x='cd ~/repositories/liferay-portal-ee-7.0.x'
 alias rpl='cd ~/repositories/liferay-plugins'
 alias rple='cd ~/repositories/liferay-plugins-ee'
 alias rp60x='cd ~/repositories/liferay-plugins-ee-6.0.x'
+alias rp6120='cd ~/repositories/liferay-plugins-ee-6.1.20'
 alias rp61x='cd ~/repositories/liferay-plugins-ee-6.1.x'
 alias rp6210='cd ~/repositories/liferay-plugins-ee-6.2.10'
 alias rp62x='cd ~/repositories/liferay-plugins-ee-6.2.x'
@@ -80,7 +88,33 @@ alias rte='cd ~/repositories/liferay-portal-ee'
 alias cu='cd ..'
 alias im='cd portal-impl'
 alias sr='cd portal-service'
-alias wb='cd portal-web'
+alias pw='cd portal-web'
+
+# MySQL
+alias mysql='mysql --user=root --password=test'
+
+function mysqlc() {
+	echo "create database $2" | mysql -u root -ptest
+
+	mysqldump -u root -ptest $1 | mysql -u root -ptest $2
+}
+
+# Change Java versions
+function java7() {
+	sudo update-alternatives --install "/usr/bin/java" "java" "/opt/java/jdk1.7.0_71/bin/java" 1
+	sudo update-alternatives --set java /opt/java/jdk1.7.0_71/bin/java
+	sudo update-alternatives --install "/usr/bin/javac" "javac" "/opt/java/jdk1.7.0_71/bin/javac" 1
+	sudo update-alternatives --set javac /opt/java/jdk1.7.0_71/bin/javac
+	export JAVA_HOME=/opt/java/jdk1.7.0_71
+}
+
+function java8() {
+	sudo update-alternatives --install "/usr/bin/java" "java" "/opt/java/jdk1.8.0_31/bin/java" 1
+	sudo update-alternatives --set java /opt/java/jdk1.8.0_31/bin/java
+	sudo update-alternatives --install "/usr/bin/javac" "javac" "/opt/java/jdk1.8.0_31/bin/javac" 1
+	sudo update-alternatives --set javac /opt/java/jdk1.8.0_31/bin/javac
+	export JAVA_HOME=/opt/java/jdk1.8.0_31
+}
 
 # Git functions
 function bi() {
@@ -175,13 +209,19 @@ function getReviewerActualName() {
 	case "$1" in
 		"brandizzi") echo "Adam"
 			;;
+		"brianchandotcom") echo "Brian"
+			;;
 		"dustinryerson") echo "Dustin"
 			;;
 		"ealonso") echo "Eudaldo"
 			;;
+		"epgarcia") echo "Eduardo"
+			;;
 		"hhuijser") echo "Hugo"
 			;;
 		"holatuwol") echo "Minhchau"
+			;;
+		"ipeychev") echo "Iliyan"
 			;;
 		"johnnyhowey") echo "Jon"
 			;;
@@ -216,13 +256,19 @@ function getReviewerJIRAName() {
 	case "$1" in
 		"brandizzi") echo "adam.brandizzi"
 			;;
+		"brianchandotcom") echo "brian.chan"
+			;;
 		"dustinryerson") echo "dustin.ryerson"
 			;;
 		"ealonso") echo "eudaldo.alonso"
 			;;
+		"epgarcia") echo "eduardo.garcia"
+			;;
 		"hhuijser") echo "hugo.huijser"
 			;;
 		"holatuwol") echo "minhchau.dang"
+			;;
+		"ipeychev") echo "iliyan.peychev"
 			;;
 		"johnnyhowey") echo "jonathan.lee"
 			;;
@@ -288,7 +334,7 @@ function gitprf() {
 	elif [[ "$PWD" == liferay-portal-ee-* ]]
 	then
 		git checkout https://github.com/jonathanmccann/liferay-portal-ee/pull/$1
-	elif [[ "$PWD" == liferay-plugins-ee ]]
+	elif [[ "$PWD" == liferay-plugins-ee-* ]]
 	then
 		git checkout https://github.com/jonathanmccann/liferay-plugins-ee/pull/$1
 	fi
@@ -328,6 +374,10 @@ function gitprs() {
 	then
 		REMOTEBRANCH="master"
 		REPO="liferay-plugins"
+	elif [[ "$PWD" == liferay-portal-ee-7.0.x ]]
+	then
+		REMOTEBRANCH="ee-7.0.x"
+		REPO="liferay-portal-ee"
 	elif [[ "$PWD" == liferay-portal-ee-6.2.x ]]
 	then
 		REMOTEBRANCH="ee-6.2.x"
@@ -340,6 +390,22 @@ function gitprs() {
 	then
 		REMOTEBRANCH="ee-6.0.x"
 		REPO="liferay-portal-ee"
+	elif [[ "$PWD" == liferay-plugins-ee-7.0.x ]]
+	then
+		REMOTEBRANCH="ee-7.0.x"
+		REPO="liferay-plugins-ee"
+	elif [[ "$PWD" == liferay-plugins-ee-6.2.x ]]
+	then
+		REMOTEBRANCH="ee-6.2.x"
+		REPO="liferay-plugins-ee"
+	elif [[ "$PWD" == liferay-plugins-ee-6.1.x ]]
+	then
+		REMOTEBRANCH="ee-6.1.x"
+		REPO="liferay-plugins-ee"
+	elif [[ "$PWD" == liferay-plugins-ee-6.0.x ]]
+	then
+		REMOTEBRANCH="ee-6.0.x"
+		REPO="liferay-plugins-ee"
 	fi
 
 	echo "GitHub Usernames: $GITHUB_USERNAMES"
@@ -347,6 +413,8 @@ function gitprs() {
 	read REVIEWER
 
 	URL=$(git pull-request -m $LPS -b $REVIEWER:$REMOTEBRANCH -h jonathanmccann:$BRANCH)
+
+	echo -n $URL | xclip -selection clipboard
 
 	# Write a comment on the reviewed pull request
 	gitprsubmitcomment $REVIEWER $URL $REPO $PULLREQUESTNUMBER
