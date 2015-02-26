@@ -1,4 +1,4 @@
-GITHUB_USERNAMES="brandizzi, dustinryerson, epgarcia, hhuijser, holatuwol, johnnyhowey, jonmak08, jorgeferrer, juliocamarero, marcellustavares, matethurzo, mhan810, rotty3000, sergiogonzalez, shinnlok, shuyangzhou"
+GITHUB_USERNAMES="adolfopa, brandizzi, dustinryerson, epgarcia, hhuijser, holatuwol, igorspasic, johnnyhowey, jonmak08, jorgeferrer, juliocamarero, marcellustavares, matethurzo, mhan810, rotty3000, sergiogonzalez, shinnlok, shuyangzhou, topolik"
 
 OAUTHTOKEN=""
 
@@ -46,6 +46,7 @@ alias gbr='git browse'
 alias gc='git checkout'
 alias gcom='git commit'
 alias gcomaa='git commit -a --amend'
+alias gcomam='git commit -am'
 alias gcf='git checkout --force'
 alias gcp='git cherry-pick'
 alias gd='git diff'
@@ -205,8 +206,32 @@ function getPullRequestNumber() {
 	echo $1 | grep -i -o '\(\?\:pull-request-\)\?[0-9]*' | head -1
 }
 
+function getPullRequestTitleAndBody() {
+	#
+	# $1 is the LPS number
+	#
+	# If there is no author (IE current user is sending a new pull request) there will be no body
+	#
+
+	AUTHOR=$(gs | grep -io "'.*/" | tr -d "'/")
+	BODY=""
+
+	if [[ ! -z "$AUTHOR" ]]
+	then
+		BODY="/cc @$AUTHOR"
+	fi
+
+	MESSAGE="$1
+
+	$BODY"
+
+	echo -n "$MESSAGE"
+}
+
 function getReviewerActualName() {
 	case "$1" in
+		"adolfopa") echo "Adolfo"
+			;;
 		"brandizzi") echo "Adam"
 			;;
 		"brianchandotcom") echo "Brian"
@@ -220,6 +245,8 @@ function getReviewerActualName() {
 		"hhuijser") echo "Hugo"
 			;;
 		"holatuwol") echo "Minhchau"
+			;;
+		"igorspasic") echo "Igor"
 			;;
 		"ipeychev") echo "Iliyan"
 			;;
@@ -247,6 +274,8 @@ function getReviewerActualName() {
 			;;
 		"shuyangzhou") echo "Shuyang"
 			;;
+		"topolik") echo "Tomáš"
+			;;
 		*) echo "Invalid choice"
 			;;
 	esac
@@ -254,6 +283,8 @@ function getReviewerActualName() {
 
 function getReviewerJIRAName() {
 	case "$1" in
+		"adolfopa") echo "adolfo.perez"
+			;;
 		"brandizzi") echo "adam.brandizzi"
 			;;
 		"brianchandotcom") echo "brian.chan"
@@ -267,6 +298,8 @@ function getReviewerJIRAName() {
 		"hhuijser") echo "hugo.huijser"
 			;;
 		"holatuwol") echo "minhchau.dang"
+			;;
+		"igorspasic") echo "igor.spasic"
 			;;
 		"ipeychev") echo "iliyan.peychev"
 			;;
@@ -293,6 +326,8 @@ function getReviewerJIRAName() {
 		"shinnlok") echo "shinn.lok"
 			;;
 		"shuyangzhou") echo "shuyang.zhou"
+			;;
+		"topolik") echo "tomas.polesovsky"
 			;;
 		*) echo "Invalid choice"
 			;;
@@ -412,7 +447,7 @@ function gitprs() {
 	echo -n "Enter the reviewer and press [ENTER]: "
 	read REVIEWER
 
-	URL=$(git pull-request -m $LPS -b $REVIEWER:$REMOTEBRANCH -h jonathanmccann:$BRANCH)
+	URL=$(git pull-request -m "$(getPullRequestTitleAndBody $LPS)" -b $REVIEWER:$REMOTEBRANCH -h jonathanmccann:$BRANCH)
 
 	echo -n $URL | xclip -selection clipboard
 
