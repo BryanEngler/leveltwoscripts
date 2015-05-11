@@ -4,9 +4,9 @@ OAUTHTOKEN=""
 
 export ANT_OPTS="-Xmx2048m -XX:MaxPermSize=1024m"
 
-export JAVA_HOME=/opt/java/jdk1.7.0_67
+export JAVA_HOME=/opt/java/jdk1.7.0_71
 
-export JRE_HOME=/opt/java/jdk1.7.0_67/jre
+export JRE_HOME=/opt/java/jdk1.7.0_71/jre
 
 export PATH=$PATH:$HOME/scripts
 
@@ -101,12 +101,22 @@ function mysqlc() {
 }
 
 # Change Java versions
+function java6() {
+	sudo update-alternatives --install "/usr/bin/java" "java" "/opt/java/jdk1.6.0_20/bin/java" 1
+	sudo update-alternatives --set java /opt/java/jdk1.6.0_20/bin/java
+	sudo update-alternatives --install "/usr/bin/javac" "javac" "/opt/java/jdk1.6.0_20/bin/javac" 1
+	sudo update-alternatives --set javac /opt/java/jdk1.6.0_20/bin/javac
+	export JAVA_HOME=/opt/java/jdk1.6.0_20
+	export JRE_HOME=/opt/java/jdk1.6.0_20/jre
+}
+
 function java7() {
 	sudo update-alternatives --install "/usr/bin/java" "java" "/opt/java/jdk1.7.0_71/bin/java" 1
 	sudo update-alternatives --set java /opt/java/jdk1.7.0_71/bin/java
 	sudo update-alternatives --install "/usr/bin/javac" "javac" "/opt/java/jdk1.7.0_71/bin/javac" 1
 	sudo update-alternatives --set javac /opt/java/jdk1.7.0_71/bin/javac
 	export JAVA_HOME=/opt/java/jdk1.7.0_71
+	export JRE_HOME=/opt/java/jdk1.7.0_71/jre
 }
 
 function java8() {
@@ -115,6 +125,7 @@ function java8() {
 	sudo update-alternatives --install "/usr/bin/javac" "javac" "/opt/java/jdk1.8.0_31/bin/javac" 1
 	sudo update-alternatives --set javac /opt/java/jdk1.8.0_31/bin/javac
 	export JAVA_HOME=/opt/java/jdk1.8.0_31
+	export JRE_HOME=/opt/java/jdk1.8.0_31/jre
 }
 
 # Git functions
