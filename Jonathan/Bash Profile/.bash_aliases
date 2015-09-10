@@ -1,8 +1,8 @@
-GITHUB_USERNAMES="adolfopa, brandizzi, dustinryerson, epgarcia, hhuijser, holatuwol, igorspasic, johnnyhowey, jonmak08, jorgeferrer, juliocamarero, marcellustavares, matethurzo, mhan810, rotty3000, sergiogonzalez, shinnlok, shuyangzhou, topolik"
+GITHUB_USERNAMES="adolfopa, brandizzi, dustinryerson, epgarcia, hhuijser, holatuwol, igorspasic, johnnyhowey, jonmak08, jorgeferrer, juliocamarero, marcellustavares, matethurzo, mhan810, rotty3000, sergiogonzalez, shinnlok, shuyangzhou, topolik, zoltantakacs"
 
 OAUTHTOKEN=""
 
-export ANT_OPTS="-Xmx2048m -XX:MaxPermSize=1024m"
+export ANT_OPTS="-Xmx4096m -XX:MaxPermSize=1024m"
 
 export JAVA_HOME=/opt/java/jdk1.7.0_71
 
@@ -49,9 +49,12 @@ alias gcomaa='git commit -a --amend'
 alias gcomam='git commit -am'
 alias gcf='git checkout --force'
 alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gf='git fetch upstream'
+alias gitk='gitk&'
 alias gpum='git pull upstream master'
 alias gpom='git push origin master'
 alias gr='git rebase'
@@ -232,7 +235,7 @@ function getPullRequestTitleAndBody() {
 		BODY="/cc @$AUTHOR"
 	fi
 
-	MESSAGE="$1
+	MESSAGE="[TECHNICAL-SUPPORT] $1
 
 	$BODY"
 
@@ -287,6 +290,8 @@ function getReviewerActualName() {
 			;;
 		"topolik") echo "Tomáš"
 			;;
+		"zoltantakacs") echo "Zoltan"
+			;;
 		*) echo "Invalid choice"
 			;;
 	esac
@@ -339,6 +344,8 @@ function getReviewerJIRAName() {
 		"shuyangzhou") echo "shuyang.zhou"
 			;;
 		"topolik") echo "tomas.polesovsky"
+			;;
+		"zoltantakacs") echo "zoltan.takacs"
 			;;
 		*) echo "Invalid choice"
 			;;
@@ -452,6 +459,14 @@ function gitprs() {
 	then
 		REMOTEBRANCH="ee-6.0.x"
 		REPO="liferay-plugins-ee"
+	fi
+
+	echo -en "\nDoes this fix need a test? "
+	read TEST
+
+	if [[ "$TEST" == y ]]
+	then
+		return 0
 	fi
 
 	echo "GitHub Usernames: $GITHUB_USERNAMES"
